@@ -28,23 +28,9 @@ public class SeriesWeek implements Serializable{
     @ManagedProperty("#{seriesDayService}")
     private SeriesDayService service;
     
-    private int count;
-    private int countA = 1;
-    
     @PostConstruct
     public void init(){
         days = new ArrayList<>();
-        countA = 2;
-        System.out.println("asd");
-//        days = new ArrayList<>();
-//        days.add(new Day("Monday"));
-//        days.add(new Day("Tuesday"));
-//        days.add(new Day("Wednesday"));
-//        days.add(new Day("Thursday"));
-//        days.add(new Day("Friday"));
-//        days.add(new Day("Saturday"));
-//        days.add(new Day("Sunday"));
-        count = days.size();
         
     }
 
@@ -67,26 +53,5 @@ public class SeriesWeek implements Serializable{
     public void setService(SeriesDayService service) {
         this.service = service;
     }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public int getCountA() {
-        return countA;
-    }
-
-    public void setCountA(int countA) {
-        this.countA = countA;
-    }
-    
-    
-
-    
-    
     
 }
