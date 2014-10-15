@@ -13,10 +13,14 @@ import java.util.List;
  *
  * @author Qbi
  */
-public class Day implements Serializable{
+public class Day implements Serializable {
 
     protected String day;
     protected List<String> series;
+
+    public Day() {
+
+    }
 
     /**
      * Creates a new instance of SeriesDay
@@ -24,10 +28,13 @@ public class Day implements Serializable{
      * @param day
      */
     public Day(String day) {
+        super();
         this.day = day;
         series = new ArrayList<>();
         series.add("1");
         series.add("2");
+        series.add("3");
+        series.add("4");
     }
 
     public String getDay() {
@@ -45,4 +52,10 @@ public class Day implements Serializable{
     public void setSeries(List<String> series) {
         this.series = series;
     }
+
+    @Override
+    public String toString() {
+        return "Day{" + "day=" + day + ", series=" + series + '}';
+    }
+
 }

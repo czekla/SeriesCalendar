@@ -6,13 +6,10 @@
 package org.qbi.seriescalendar.web;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 
 /**
@@ -21,23 +18,22 @@ import javax.faces.view.ViewScoped;
  */
 @ManagedBean(name = "seriesWeek")
 @ViewScoped
-public class SeriesWeek implements Serializable{
+public class SeriesWeek implements Serializable {
 
     private List<Day> days;
 
-    @ManagedProperty("#{seriesDayService}")
+    @ManagedProperty(value = "#{seriesDayService}")
     private SeriesDayService service;
-    
+
     @PostConstruct
-    public void init(){
-        days = new ArrayList<>();
-        
+    public void init() {
+
     }
 
-    public void update(){
+    public void update() {
         days = service.createDays();
     }
-    
+
     public List<Day> getDays() {
         return days;
     }
@@ -53,5 +49,5 @@ public class SeriesWeek implements Serializable{
     public void setService(SeriesDayService service) {
         this.service = service;
     }
-    
+
 }

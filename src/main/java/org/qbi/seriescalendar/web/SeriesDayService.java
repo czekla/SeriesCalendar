@@ -8,21 +8,21 @@ package org.qbi.seriescalendar.web;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.inject.Named;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Qbi
  */
 @ManagedBean(name = "seriesDayService")
-@ApplicationScoped
+@SessionScoped
 public class SeriesDayService implements Serializable {
 
+    private List<Day> days;
 
     public List<Day> createDays() {
-        List<Day> days = new ArrayList<>();
+        days = new ArrayList<>();
         days.add(new Day("Monday"));
         days.add(new Day("Tuesday"));
         days.add(new Day("Wednesday"));
@@ -32,4 +32,17 @@ public class SeriesDayService implements Serializable {
         days.add(new Day("Sunday"));
         return days;
     }
+
+    public void save() {
+        System.out.println(days.toString());
+    }
+
+    public List<Day> getDays() {
+        return days;
+    }
+
+    public void setDays(List<Day> days) {
+        this.days = days;
+    }
+
 }

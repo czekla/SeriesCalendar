@@ -18,7 +18,7 @@
                     Series Calendar
                 </f:facet>
                 <p:column>
-                    <p:orderList var="seriesday" value="#{dayOfweek.series}" itemLabel="#{seriesday}" itemValue="#{seriesday}">
+                    <p:orderList id="seriesday" var="seriesday" value="#{dayOfweek.series}" itemLabel="#{seriesday}" itemValue="#{seriesday}">
                         <f:facet name="caption">
                             <h:outputText value="#{dayOfweek.day}"></h:outputText>
                         </f:facet>
@@ -29,6 +29,7 @@
             </p:dataGrid>
             
             <p:commandButton value="Update" update="weekDataGrid" actionListener="#{seriesWeek.update}"></p:commandButton>
+            <p:commandButton value="Save" process="@this weekDataGrid" action="#{seriesDayService.save}"></p:commandButton>
         </h:form>
     </h:body>  
 </html> 
