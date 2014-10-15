@@ -28,7 +28,7 @@
                 </f:facet>
             </p:dataGrid>
             
-            <p:commandButton value="Update" update="weekDataGrid" actionListener="#{seriesWeek.update}"></p:commandButton>
+            <p:commandButton value="Update" update="weekDataGrid" action="#{seriesWeek.update}"></p:commandButton>
             <p:commandButton value="Save" process="@this weekDataGrid" action="#{seriesDayService.save}"></p:commandButton>
         </h:form>
     </h:body>  
