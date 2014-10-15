@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:p="http://primefaces.org/ui">  
+
+    <h:head>  
+
+    </h:head>  
+
+    <h:body>  
+
+        <h:form id="dayForm">
+
+            <p:dataGrid id="weekDataGrid" var="dayOfweek" value="#{seriesWeek.days}" columns="4">
+                <f:facet name="header">
+                    Series Calendar
+                </f:facet>
+                <p:column>
+                    <p:orderList var="seriesday" value="#{dayOfweek.series}" itemLabel="#{seriesday}" itemValue="#{seriesday}">
+                        <f:facet name="caption">
+                            <h:outputText value="#{dayOfweek.day}"></h:outputText>
+                        </f:facet>
+                    </p:orderList>
+                </p:column>
+                <f:facet name="footer">
+                    <h:outputText value="#{seriesWeek.count}"></h:outputText>        
+                </f:facet>
+            </p:dataGrid>
+            
+            <p:commandButton value="Update" update="weekDataGrid" actionListener="#{seriesWeek.update}"></p:commandButton>
+        </h:form>
+    </h:body>  
+</html> 
