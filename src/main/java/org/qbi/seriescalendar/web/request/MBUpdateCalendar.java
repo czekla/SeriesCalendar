@@ -3,26 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.qbi.seriescalendar.web;
+package org.qbi.seriescalendar.web.request;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedProperty;
+import org.qbi.seriescalendar.web.model.Day;
+import org.qbi.seriescalendar.web.view.MBDayView;
 
 /**
  *
  * @author Qbi
  */
-@ManagedBean(name = "seriesDayService")
-@SessionScoped
-public class SeriesDayService implements Serializable {
+@ManagedBean(name = "mBUpdateCalendar")
+@RequestScoped
+public class MBUpdateCalendar implements Serializable {
 
-    private List<Day> days;
+    @ManagedProperty("#{mBDayView}")
+    private MBDayView dayView;
 
-    public List<Day> createDays() {
-        days = new ArrayList<>();
+    public void update() {
+
+        System.out.println("update");
+        List<Day> days = new ArrayList<>();
         days.add(new Day("Monday"));
         days.add(new Day("Tuesday"));
         days.add(new Day("Wednesday"));
@@ -30,19 +36,7 @@ public class SeriesDayService implements Serializable {
         days.add(new Day("Friday"));
         days.add(new Day("Saturday"));
         days.add(new Day("Sunday"));
-        return days;
-    }
 
-    public void save() {
-        System.out.println(days.toString());
+        dayView.setDaysOfWeek(days);
     }
-
-    public List<Day> getDays() {
-        return days;
-    }
-
-    public void setDays(List<Day> days) {
-        this.days = days;
-    }
-
 }

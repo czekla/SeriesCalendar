@@ -13,14 +13,14 @@
 
         <h:form id="dayForm">
 
-            <p:dataGrid id="weekDataGrid" var="dayOfweek" value="#{seriesWeek.days}" columns="4">
+            <p:dataGrid id="weekDataGrid" var="daysOfweek" value="#{mBDayView.daysOfWeek}" columns="4">
                 <f:facet name="header">
                     Series Calendar
                 </f:facet>
                 <p:column>
-                    <p:orderList id="seriesday" var="seriesday" value="#{dayOfweek.series}" itemLabel="#{seriesday}" itemValue="#{seriesday}">
+                    <p:orderList id="seriesDay" var="seriesDay" value="#{daysOfweek.series}" itemLabel="#{seriesDay}" itemValue="#{seriesDay}">
                         <f:facet name="caption">
-                            <h:outputText value="#{dayOfweek.day}"></h:outputText>
+                            #{daysOfweek.day}
                         </f:facet>
                     </p:orderList>
                 </p:column>
@@ -28,8 +28,8 @@
                 </f:facet>
             </p:dataGrid>
             
-            <p:commandButton value="Update" update="weekDataGrid" action="#{seriesWeek.update}"></p:commandButton>
-            <p:commandButton value="Save" process="@this weekDataGrid" action="#{seriesDayService.save}"></p:commandButton>
+            <p:commandButton value="Update" process="@this" update="weekDataGrid" action="#{mBUpdateCalendar.update}"/>
+            <p:commandButton value="Save"/>
         </h:form>
     </h:body>  
 </html> 

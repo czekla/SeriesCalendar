@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.qbi.seriescalendar.web;
+package org.qbi.seriescalendar.web.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,7 +19,8 @@ public class Day implements Serializable {
     protected List<String> series;
 
     public Day() {
-
+        day = "";
+        series = new ArrayList<>();
     }
 
     /**
@@ -28,7 +29,6 @@ public class Day implements Serializable {
      * @param day
      */
     public Day(String day) {
-        super();
         this.day = day;
         series = new ArrayList<>();
         series.add("1");
@@ -56,6 +56,21 @@ public class Day implements Serializable {
     @Override
     public String toString() {
         return "Day{" + "day=" + day + ", series=" + series + '}';
+    }
+
+    public static Day toDay(String input) {
+        Day d = new Day();
+        String[] split = input.split(", ");
+        d.setDay(split[0].substring(8));
+        List<String> l = new ArrayList<>();
+        for (String s : split) {
+            if (s.equals(split[0])) {
+                continue;
+            }
+            l.add(s);
+        }
+        d.setSeries(l);
+        return d;
     }
 
 }
