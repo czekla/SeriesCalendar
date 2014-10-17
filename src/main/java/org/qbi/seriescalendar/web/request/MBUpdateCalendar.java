@@ -39,4 +39,14 @@ public class MBUpdateCalendar implements Serializable {
 
         dayView.setDaysOfWeek(days);
     }
+
+    public MBDayView getDayView() {
+        return dayView;
+    }
+
+    public void setDayView(MBDayView dayView) {
+        this.dayView = dayView;
+    }
+    
+    
 }

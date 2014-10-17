@@ -11,7 +11,7 @@
 
     <h:body>  
 
-        <h:form id="dayForm">
+        <h:form id="weekForm">
 
             <p:dataGrid id="weekDataGrid" var="daysOfweek" value="#{mBDayView.daysOfWeek}" columns="4">
                 <f:facet name="header">
@@ -29,7 +29,7 @@
             </p:dataGrid>
             
             <p:commandButton value="Update" process="@this" update="weekDataGrid" action="#{mBUpdateCalendar.update}"/>
-            <p:commandButton value="Save"/>
+            <p:commandButton value="Save" process="weekForm"/>
         </h:form>
     </h:body>  
 </html> 
