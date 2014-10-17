@@ -5,6 +5,7 @@
  */
 package org.qbi.seriescalendar.web.request;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
@@ -18,14 +19,16 @@ import org.qbi.seriescalendar.web.view.MBDayView;
  */
 @ManagedBean(name = "mBSaveCalendar")
 @RequestScoped
-public class MBSaveCalendar {
+public class MBSaveCalendar implements Serializable{
 
     @ManagedProperty("#{mBDayView}")
     private MBDayView dayView;
 
     public void save() {
 
+        System.out.println("save");
         List<Day> days = dayView.getDaysOfWeek();
+        System.out.println(days.size());
         for (Day day : days) {
             System.out.println(day);
         }

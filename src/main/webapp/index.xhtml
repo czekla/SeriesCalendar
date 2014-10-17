@@ -18,7 +18,8 @@
                     Series Calendar
                 </f:facet>
                 <p:column>
-                    <p:orderList id="seriesDay" var="seriesDay" value="#{daysOfweek.series}" itemLabel="#{seriesDay}" itemValue="#{seriesDay}">
+                    <p:orderList id="seriesDay" var="seriesDay" value="#{daysOfweek.series}" 
+                                 itemLabel="#{seriesDay}" itemValue="#{seriesDay}" converter="#{dayConverter}">
                         <f:facet name="caption">
                             #{daysOfweek.day}
                         </f:facet>
@@ -27,7 +28,7 @@
                 <f:facet name="footer">
                 </f:facet>
             </p:dataGrid>
-            
+
             <p:commandButton value="Update" process="@this" update="weekDataGrid" action="#{mBUpdateCalendar.update}"/>
             <p:commandButton value="Save" process="@this :weekForm:weekDataGrid" action="#{mBSaveCalendar.save}"/>
         </h:form>
