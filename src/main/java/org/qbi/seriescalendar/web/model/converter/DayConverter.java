@@ -5,6 +5,8 @@
  */
 package org.qbi.seriescalendar.web.model.converter;
 
+import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -16,6 +18,8 @@ import org.qbi.seriescalendar.web.model.Day;
  * @author Qbi
  */
 @FacesConverter(value = "dayConverter")
+//@ManagedBean(name = "dayConverter")
+//@RequestScoped
 public class DayConverter implements Converter {
 
     @Override
