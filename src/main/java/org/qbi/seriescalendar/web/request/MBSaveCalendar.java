@@ -1,0 +1,42 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.qbi.seriescalendar.web.request;
+
+import java.util.List;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import org.qbi.seriescalendar.web.model.Day;
+import org.qbi.seriescalendar.web.view.MBDayView;
+
+/**
+ *
+ * @author Qbi
+ */
+@ManagedBean(name = "mBSaveCalendar")
+@RequestScoped
+public class MBSaveCalendar {
+
+    @ManagedProperty("#{mBDayView}")
+    private MBDayView dayView;
+
+    public void save() {
+
+        List<Day> days = dayView.getDaysOfWeek();
+        for (Day day : days) {
+            System.out.println(day);
+        }
+
+    }
+
+    public MBDayView getDayView() {
+        return dayView;
+    }
+
+    public void setDayView(MBDayView dayView) {
+        this.dayView = dayView;
+    }
+}
