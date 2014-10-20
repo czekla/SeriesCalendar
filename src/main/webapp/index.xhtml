@@ -19,19 +19,27 @@
                 </f:facet>
                 <p:column>
                     <p:orderList id="seriesDay" var="seriesDay" value="#{daysOfweek.series}" 
-                                 itemLabel="#{seriesDay}" itemValue="#{seriesDay}" >
-                        <f:facet name="caption">
-                            #{daysOfweek.day}
-                        </f:facet>
+                                 itemValue="#{seriesDay}" >
+                        <f:facet name="caption">#{daysOfweek.day}</f:facet>
+                        <p:column style="width:40px">
+                            <h:outputText styleClass="ui-icon ui-icon-tag" />
+                        </p:column>
+                        <p:column>
+                            <p:panel id="dayPanel">
+                                #{seriesDay}
+                            </p:panel>
+                            <p:draggable for="dayPanel" helper="clone" revert="true"/>
+                        </p:column>
                     </p:orderList>
                 </p:column>
                 <f:facet name="footer">
+                    <p:commandButton value="Update" process="@this" update="weekDataGrid" action="#{mBUpdateCalendar.update}"/>
+                    <p:commandButton value="Save" process="@this :weekForm:weekDataGrid" action="#{mBSaveCalendar.save}"/>
+                    <p:commandButton value="Clear" process="@this" update="weekDataGrid" action="#{mBUpdateCalendar.clear}"/>
                 </f:facet>
             </p:dataGrid>
 
-            <p:commandButton value="Update" process="@this" update="weekDataGrid" action="#{mBUpdateCalendar.update}"/>
-            <p:commandButton value="Save" process="@this :weekForm:weekDataGrid" action="#{mBSaveCalendar.save}"/>
-            <p:commandButton value="Clear" process="@this" update="weekDataGrid" action="#{mBUpdateCalendar.clear}"/>
+
         </h:form>
     </h:body>  
 </html> 
