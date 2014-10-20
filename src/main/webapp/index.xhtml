@@ -11,6 +11,8 @@
 
     <h:body>  
 
+        <p:growl id="growl"/>
+
         <h:form id="weekForm">
 
             <p:dataGrid id="weekDataGrid" var="daysOfweek" value="#{mBDayView.daysOfWeek}" columns="4">
@@ -26,11 +28,17 @@
                         </p:column>
                         <p:column>
                             <p:panel id="dayPanel">
+                                <f:attribute name="seriesDay" value="#{daysOfweek.day}"/>
+                                <f:attribute name="seriesTitle" value="#{seriesDay}"/>
                                 #{seriesDay}
                             </p:panel>
-                            <p:draggable for="dayPanel" helper="clone" revert="true"/>
+                            <p:draggable for="dayPanel" helper="clone" revert="true" opacity="0.7"/>
                         </p:column>
                     </p:orderList>
+                    <p:droppable id="dayDrop" for="seriesDay" tolerance="pointer" datasource="seriesDay"
+                                 activeStyleClass="ui-state-default" hoverStyleClass="ui-state-hover">
+                        <p:ajax listener="#{mBDayView.onDragNDrop}" update="growl weekDataGrid"/>
+                    </p:droppable>
                 </p:column>
                 <f:facet name="footer">
                     <p:commandButton value="Update" process="@this" update="weekDataGrid" action="#{mBUpdateCalendar.update}"/>
