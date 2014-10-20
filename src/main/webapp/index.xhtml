@@ -34,7 +34,7 @@
                             </p:panel>
                             <p:draggable for="dayPanel" helper="clone" revert="true" opacity="0.7"/>
                         </p:column>
-                        <p:droppable id="dayDrop" for="seriesDay" tolerance="pointer" datasource="seriesDay"
+                        <p:droppable id="dayDrop" for="seriesDay" tolerance="pointer" 
                                      activeStyleClass="ui-state-default" hoverStyleClass="ui-state-hover">
                             <p:ajax listener="#{mBDayView.onDragNDrop}" update="growl weekDataGrid"/>
                         </p:droppable>
@@ -42,9 +42,9 @@
 
                 </p:column>
                 <f:facet name="footer">
-                    <p:commandButton value="Update" process="@this" update="weekDataGrid" action="#{mBUpdateCalendar.update}"/>
-                    <p:commandButton value="Save" process="@this :weekForm:weekDataGrid" action="#{mBSaveCalendar.save}"/>
-                    <p:commandButton value="Clear" process="@this" update="weekDataGrid" action="#{mBUpdateCalendar.clear}"/>
+                    <p:commandButton id="updateBtn" value="Update" process="@this" update="weekDataGrid saveBtn clearBtn" action="#{mBUpdateCalendar.update}"/>
+                    <p:commandButton id="saveBtn" value="Save" process="@this :weekForm:weekDataGrid" action="#{mBSaveCalendar.save}" rendered="#{not empty mBDayView.daysOfWeek}"/>
+                    <p:commandButton id="clearBtn" value="Clear" process="@this" update="weekDataGrid saveBtn clearBtn" action="#{mBUpdateCalendar.clear}" rendered="#{not empty mBDayView.daysOfWeek}"/>
                 </f:facet>
             </p:dataGrid>
 
