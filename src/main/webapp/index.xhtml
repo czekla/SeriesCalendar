@@ -7,14 +7,21 @@
 
     <h:head>  
 
+        <f:facet name="last">
+            <style type="text/css">
+                .ui-panel .ui-panel-content {
+                    padding: 0;
+                }
+            </style>
+        </f:facet>
     </h:head>  
 
     <h:body>  
 
-        <p:growl id="growl"/>
+
 
         <h:form id="weekForm">
-
+            <p:growl id="growl"/>
             <p:dataGrid id="weekDataGrid" var="daysOfweek" value="#{mBDayView.daysOfWeek}" columns="4">
                 <f:facet name="header">
                     Series Calendar
@@ -47,8 +54,13 @@
                     <p:commandButton id="clearBtn" value="Clear" process="@this" update="weekDataGrid saveBtn clearBtn" action="#{mBUpdateCalendar.clear}" rendered="#{not empty mBDayView.daysOfWeek}"/>
                 </f:facet>
             </p:dataGrid>
-
-
+            <p:panel id="pnl" style="width: 200px; height: 200px;">
+                <p>Drop here...</p>
+            </p:panel>
+            <p:droppable id="pnlDrop" for="pnl" tolerance="pointer" 
+                         activeStyleClass="ui-state-default" hoverStyleClass="ui-state-hover">
+                <p:ajax listener="#{mBDayView.onDragNDrop}" update="growl"/>
+            </p:droppable>
         </h:form>
     </h:body>  
 </html> 
