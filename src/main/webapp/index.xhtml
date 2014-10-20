@@ -34,11 +34,12 @@
                             </p:panel>
                             <p:draggable for="dayPanel" helper="clone" revert="true" opacity="0.7"/>
                         </p:column>
+                        <p:droppable id="dayDrop" for="seriesDay" tolerance="pointer" datasource="seriesDay"
+                                     activeStyleClass="ui-state-default" hoverStyleClass="ui-state-hover">
+                            <p:ajax listener="#{mBDayView.onDragNDrop}" update="growl weekDataGrid"/>
+                        </p:droppable>
                     </p:orderList>
-                    <p:droppable id="dayDrop" for="seriesDay" tolerance="pointer" datasource="seriesDay"
-                                 activeStyleClass="ui-state-default" hoverStyleClass="ui-state-hover">
-                        <p:ajax listener="#{mBDayView.onDragNDrop}" update="growl weekDataGrid"/>
-                    </p:droppable>
+
                 </p:column>
                 <f:facet name="footer">
                     <p:commandButton value="Update" process="@this" update="weekDataGrid" action="#{mBUpdateCalendar.update}"/>
