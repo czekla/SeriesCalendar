@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.qbi.seriescalendar.web.session;
+package org.qbi.seriescalendar.web.view;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import org.qbi.seriescalendar.web.model.Day;
 
 /**
@@ -18,7 +18,7 @@ import org.qbi.seriescalendar.web.model.Day;
  * @author Qbi
  */
 @ManagedBean(name = "mBDayView")
-@SessionScoped
+@ViewScoped
 public class MBDayView implements Serializable {
 
     private List<Day> daysOfWeek;

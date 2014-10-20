@@ -12,7 +12,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import org.qbi.seriescalendar.web.model.Day;
-import org.qbi.seriescalendar.web.session.MBDayView;
+import org.qbi.seriescalendar.web.view.MBDayView;
 
 /**
  *
