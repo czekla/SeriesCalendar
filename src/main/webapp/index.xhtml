@@ -21,7 +21,7 @@
 
 
         <h:form id="weekForm">
-            <p:growl id="growl"/>
+            <p:growl id="growl" globalOnly="true" autoUpdate="true"/>
             <p:dataGrid id="weekDataGrid" var="daysOfweek" value="#{mBDayView.daysOfWeek}" columns="4">
                 <f:facet name="header">
                     Series Calendar
@@ -43,10 +43,9 @@
                         </p:column>
                         <p:droppable id="dayDrop" for="seriesDay" tolerance="pointer" 
                                      activeStyleClass="ui-state-default" hoverStyleClass="ui-state-hover">
-                            <p:ajax listener="#{mBDayView.onDragNDrop}" update="growl weekDataGrid"/>
+                            <p:ajax listener="#{mBDragNDrop.onDragNDrop}" update="growl weekDataGrid"/>
                         </p:droppable>
                     </p:orderList>
-
                 </p:column>
                 <f:facet name="footer">
                     <p:commandButton id="updateBtn" value="Update" process="@this" update="weekDataGrid saveBtn clearBtn" action="#{mBUpdateCalendar.update}"/>
@@ -59,7 +58,7 @@
             </p:panel>
             <p:droppable id="pnlDrop" for="pnl" tolerance="pointer" 
                          activeStyleClass="ui-state-default" hoverStyleClass="ui-state-hover">
-                <p:ajax listener="#{mBDayView.onDragNDrop}" update="growl"/>
+                <p:ajax listener="#{mBDragNDrop.onDragNDrop}" update="growl"/>
             </p:droppable>
         </h:form>
     </h:body>  
