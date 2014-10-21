@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"  
       xmlns:h="http://java.sun.com/jsf/html"  
       xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">  
 
     <h:head>  
@@ -11,6 +12,11 @@
             <style type="text/css">
                 .ui-panel .ui-panel-content {
                     padding: 0;
+                }
+                .dayDataTable {
+                    width: 150px;
+                    float: left;
+                    margin: 10px;
                 }
             </style>
         </f:facet>
@@ -21,45 +27,39 @@
 
 
         <h:form id="weekForm">
+
             <p:growl id="growl" globalOnly="true" autoUpdate="true"/>
-            <p:dataGrid id="weekDataGrid" var="daysOfweek" value="#{mBDayView.daysOfWeek}" columns="4">
-                <f:facet name="header">
-                    Series Calendar
-                </f:facet>
-                <p:column>
-                    <p:orderList id="seriesDay" var="seriesDay" value="#{daysOfweek.series}" 
-                                 itemValue="#{seriesDay}" >
-                        <f:facet name="caption">#{daysOfweek.day}</f:facet>
-                        <p:column style="width:40px">
-                            <h:outputText styleClass="ui-icon ui-icon-tag" />
-                        </p:column>
+            <p:panel id="weekData" header="Series Calendar">
+                <ui:repeat var="daysOfweek" value="#{mBDayView.daysOfWeek}">
+                    <p:dataTable id="dayTable" var="seriesDay" value="#{daysOfweek.series}" draggableRows="true" styleClass="dayDataTable">
+                        <p:ajax event="rowReorder" listener="#{mBDragNDrop.onDragNDrop}"/>
+                        <f:facet name="header">#{daysOfweek.day}</f:facet>
                         <p:column>
-                            <p:panel id="dayPanel">
+                            <h:outputText id="dragIcon" value="#{seriesDay}">
                                 <f:attribute name="seriesDay" value="#{daysOfweek.day}"/>
                                 <f:attribute name="seriesTitle" value="#{seriesDay}"/>
-                                #{seriesDay}
-                            </p:panel>
-                            <p:draggable for="dayPanel" helper="clone" revert="true" opacity="0.7"/>
+                            </h:outputText>
+                            <p:draggable for="dragIcon" revert="true" helper="clone"/>
                         </p:column>
-                        <p:droppable id="dayDrop" for="seriesDay" tolerance="pointer" 
-                                     activeStyleClass="ui-state-default" hoverStyleClass="ui-state-hover">
-                            <p:ajax listener="#{mBDragNDrop.onDragNDrop}" update="growl weekDataGrid"/>
-                        </p:droppable>
-                    </p:orderList>
-                </p:column>
-                <f:facet name="footer">
-                    <p:commandButton id="updateBtn" value="Update" process="@this" update="weekDataGrid saveBtn clearBtn" action="#{mBUpdateCalendar.update}"/>
-                    <p:commandButton id="saveBtn" value="Save" process="@this :weekForm:weekDataGrid" action="#{mBSaveCalendar.save}" rendered="#{not empty mBDayView.daysOfWeek}"/>
-                    <p:commandButton id="clearBtn" value="Clear" process="@this" update="weekDataGrid saveBtn clearBtn" action="#{mBUpdateCalendar.clear}" rendered="#{not empty mBDayView.daysOfWeek}"/>
-                </f:facet>
-            </p:dataGrid>
+                    </p:dataTable>
+                </ui:repeat>
+            </p:panel>
+            <div style="clear: both;"></div>
+
+            <p:commandButton id="updateBtn" value="Update" process="@this" update="weekData saveBtn clearBtn" action="#{mBUpdateCalendar.update}"/>
+            <p:commandButton id="saveBtn" value="Save" process="@this weekData" action="#{mBSaveCalendar.save}" rendered="#{not empty mBDayView.daysOfWeek}"/>
+            <p:commandButton id="clearBtn" value="Clear" process="@this" update="weekData saveBtn clearBtn" action="#{mBUpdateCalendar.clear}" rendered="#{not empty mBDayView.daysOfWeek}"/>
+
+
+
             <p:panel id="pnl" style="width: 200px; height: 200px;">
                 <p>Drop here...</p>
             </p:panel>
             <p:droppable id="pnlDrop" for="pnl" tolerance="pointer" 
                          activeStyleClass="ui-state-default" hoverStyleClass="ui-state-hover">
-                <p:ajax listener="#{mBDragNDrop.onDragNDrop}" update="growl"/>
+                <p:ajax listener="#{mBDragNDrop.onDragNDrop}"/>
             </p:droppable>
         </h:form>
+
     </h:body>  
 </html> 
