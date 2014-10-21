@@ -22,12 +22,13 @@ import org.qbi.seriescalendar.web.model.Day;
 public class MBDayView implements Serializable {
 
     private List<Day> daysOfWeek;
+    private Day testDay;
 
     @PostConstruct
     public void init() {
 
         daysOfWeek = new ArrayList<>();
-
+        testDay = new Day("Test");
     }
 
     public List<Day> getDaysOfWeek() {
@@ -36,6 +37,14 @@ public class MBDayView implements Serializable {
 
     public void setDaysOfWeek(List<Day> daysOfWeek) {
         this.daysOfWeek = daysOfWeek;
+    }
+
+    public Day getTestDay() {
+        return testDay;
+    }
+
+    public void setTestDay(Day testDay) {
+        this.testDay = testDay;
     }
 
 }
