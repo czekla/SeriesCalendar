@@ -28,7 +28,7 @@ public class DayConverter implements Converter {
             return value;
         }
 
-        Day day = Day.toDay(value);
+        Day day = null;
         return day;
     }
 

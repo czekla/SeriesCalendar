@@ -13,6 +13,11 @@
                 .ui-panel .ui-panel-content {
                     padding: 0;
                 }
+                .weekDataTable {
+                    display: block;
+                    width: 1200px;
+                    margin: 10px auto;
+                }
                 .dayDataTable {
                     width: 150px;
                     float: left;
@@ -22,40 +27,38 @@
         </f:facet>
     </h:head>  
 
-    <h:body>  
-
-
-
+    <h:body>
+        <p:growl id="growl" globalOnly="true" autoUpdate="true"/>
         <h:form id="weekForm">
+            <p:panel id="weekData" header="Series Calendar" styleClass="weekDataTable">
+                <ui:repeat id="daysOfweek" var="daysOfweek" value="#{mBDayView.daysOfWeek}">
+                    <p:dataTable id="dayTable" var="seriesList" value="#{daysOfweek.seriesList}" draggableRows="true" styleClass="dayDataTable">
 
-            <p:growl id="growl" globalOnly="true" autoUpdate="true"/>
-            <p:panel id="weekData" header="Series Calendar">
-                <ui:repeat var="daysOfweek" value="#{mBDayView.daysOfWeek}">
-                    <p:dataTable id="dayTable" var="seriesDay" value="#{daysOfweek.series}" draggableRows="true" styleClass="dayDataTable">
-                        <p:ajax event="rowReorder" listener="#{mBDragNDrop.onDragNDrop}"/>
                         <f:facet name="header">#{daysOfweek.day}</f:facet>
+                        <p:column style="width:20px">
+                            <h:outputText  styleClass="ui-icon ui-icon-arrow-4" />
+                        </p:column>
                         <p:column>
-                            <h:outputText id="dragIcon" value="#{seriesDay}">
+                            <p:panel id="dragIcon">
                                 <f:attribute name="seriesDay" value="#{daysOfweek.day}"/>
-                                <f:attribute name="seriesTitle" value="#{seriesDay}"/>
-                            </h:outputText>
-                            <p:draggable for="dragIcon" revert="true" helper="clone"/>
+                                <f:attribute name="seriesTitle" value="#{seriesList.title}"/>
+                                #{seriesList.title}
+                            </p:panel>
+                            <p:draggable for="dragIcon" revert="true" helper="clone" scope="series"/>
                         </p:column>
                     </p:dataTable>
                 </ui:repeat>
+                <div style="clear: both;"></div>
+                <p:commandButton value="Update" process="@this" update="weekData" action="#{mBUpdateCalendar.update}"/>
+                <p:commandButton value="Save" process="@this weekData" action="#{mBSaveCalendar.save}" rendered="#{not empty mBDayView.daysOfWeek}"/>
+                <p:commandButton value="Clear" process="@this" update="weekData" action="#{mBUpdateCalendar.clear}" rendered="#{not empty mBDayView.daysOfWeek}"/>
+
             </p:panel>
-            <div style="clear: both;"></div>
-
-            <p:commandButton id="updateBtn" value="Update" process="@this" update="weekData saveBtn clearBtn" action="#{mBUpdateCalendar.update}"/>
-            <p:commandButton id="saveBtn" value="Save" process="@this weekData" action="#{mBSaveCalendar.save}" rendered="#{not empty mBDayView.daysOfWeek}"/>
-            <p:commandButton id="clearBtn" value="Clear" process="@this" update="weekData saveBtn clearBtn" action="#{mBUpdateCalendar.clear}" rendered="#{not empty mBDayView.daysOfWeek}"/>
-
-
 
             <p:panel id="pnl" style="width: 200px; height: 200px;">
                 <p>Drop here...</p>
             </p:panel>
-            <p:droppable id="pnlDrop" for="pnl" tolerance="pointer" 
+            <p:droppable id="pnlDrop" for="pnl" tolerance="pointer" scope="series" 
                          activeStyleClass="ui-state-default" hoverStyleClass="ui-state-hover">
                 <p:ajax listener="#{mBDragNDrop.onDragNDrop}"/>
             </p:droppable>

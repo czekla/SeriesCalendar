@@ -16,11 +16,11 @@ import java.util.List;
 public class Day implements Serializable {
 
     protected String day;
-    protected List<String> series;
+    protected List<Series> seriesList;
 
     public Day() {
         day = "";
-        series = new ArrayList<>();
+        seriesList = new ArrayList<>();
     }
 
     /**
@@ -30,11 +30,11 @@ public class Day implements Serializable {
      */
     public Day(String day) {
         this.day = day;
-        series = new ArrayList<>();
-        series.add("1");
-        series.add("2");
-        series.add("3");
-        series.add("4");
+        seriesList = new ArrayList<>();
+        seriesList.add(new Series(day, "1"));
+        seriesList.add(new Series(day, "2"));
+        seriesList.add(new Series(day, "3"));
+        seriesList.add(new Series(day, "4"));
     }
 
     public String getDay() {
@@ -45,32 +45,17 @@ public class Day implements Serializable {
         this.day = day;
     }
 
-    public List<String> getSeries() {
-        return series;
+    public List<Series> getSeriesList() {
+        return seriesList;
     }
 
-    public void setSeries(List<String> series) {
-        this.series = series;
+    public void setSeriesList(List<Series> seriesList) {
+        this.seriesList = seriesList;
     }
 
     @Override
     public String toString() {
-        return "Day{" + "day=" + day + ", series=" + series + '}';
-    }
-
-    public static Day toDay(String input) {
-        Day d = new Day();
-        String[] split = input.split(", ");
-        d.setDay(split[0].substring(8));
-        List<String> l = new ArrayList<>();
-        for (String s : split) {
-            if (s.equals(split[0])) {
-                continue;
-            }
-            l.add(s);
-        }
-        d.setSeries(l);
-        return d;
+        return "Day{" + "day=" + day + ", series=" + seriesList + '}';
     }
 
 }

@@ -27,16 +27,18 @@ public class MBDragNDrop {
 
         System.out.println("drop");
         System.out.println(event.getDragId());
-        System.err.println(event.getData());
-//        Panel panel = (Panel) event.getComponent().findComponent(event.getDragId());
-//        logger.debug(panel);
-//        String day = panel.getAttributes().get("seriesDay").toString();
-//        String title = panel.getAttributes().get("seriesTitle").toString();
-//        System.out.println(day);
-//        System.out.println(title);
+        System.out.println(event.getData());
+        Panel panel = (Panel) event.getComponent().findComponent(event.getDragId());
+        logger.debug(panel);
+        String day = panel.getAttributes().get("seriesDay").toString();
+        String title = panel.getAttributes().get("seriesTitle").toString();
+        System.out.println(day);
+        System.out.println(title);
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                "Day: " + day + "<br/>" + "Title:" + title, null);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
 //        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-//                "Day: " + day + "<br/>" + "Title:" + title, null);
+//                "Day: " + "" + "<br/>" + "Title:" + "", null);
 //        FacesContext.getCurrentInstance().addMessage(null, msg);
-        
     }
 }
