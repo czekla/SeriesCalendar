@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.qbi.seriescalendar.web.model.Day;
+import org.qbi.seriescalendar.web.model.Series;
 
 /**
  *
@@ -47,4 +48,15 @@ public class MBDayView implements Serializable {
         this.testDay = testDay;
     }
 
+    public List<Series> printSeries(){
+        List<Series> list = new ArrayList<>();
+        
+        for (Day d : daysOfWeek) {
+            for (Series s : d.getSeriesList()) {
+                list.add(s);
+            }
+        }
+        
+        return list;
+    }
 }
