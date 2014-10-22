@@ -8,6 +8,7 @@ package org.qbi.seriescalendar.web.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -31,10 +32,11 @@ public class Day implements Serializable {
     public Day(String day) {
         this.day = day;
         seriesList = new ArrayList<>();
-        seriesList.add(new Series(day, "1"));
-        seriesList.add(new Series(day, "2"));
-        seriesList.add(new Series(day, "3"));
-        seriesList.add(new Series(day, "4"));
+        Random rnd = new Random();
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
     }
 
     public String getDay() {

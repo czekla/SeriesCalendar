@@ -47,7 +47,7 @@ public class MBDragNDrop {
         System.out.println(title);
         StringBuilder sb = new StringBuilder();
         sb.append("Day: ").append(day);
-        sb.append(System.lineSeparator());
+        sb.append("<br/>");
         sb.append("Title: ").append(title);
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
                 sb.toString(), null);
