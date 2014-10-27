@@ -11,6 +11,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.TreeNode;
 import org.qbi.seriescalendar.web.model.Day;
 import org.qbi.seriescalendar.web.model.Series;
 
@@ -24,11 +26,19 @@ public class MBDayView implements Serializable {
 
     private List<Day> daysOfWeek;
     private Day testDay;
+    private Series selectedSeries;
 
     @PostConstruct
     public void init() {
 
         daysOfWeek = new ArrayList<>();
+//        daysOfWeek.add(new Day("Monday"));
+//        daysOfWeek.add(new Day("Tuesday"));
+//        daysOfWeek.add(new Day("Wednesday"));
+//        daysOfWeek.add(new Day("Thursday"));
+//        daysOfWeek.add(new Day("Friday"));
+//        daysOfWeek.add(new Day("Saturday"));
+//        daysOfWeek.add(new Day("Sunday"));
         testDay = new Day("Test");
     }
 
@@ -48,15 +58,44 @@ public class MBDayView implements Serializable {
         this.testDay = testDay;
     }
 
-    public List<Series> printSeries(){
-        List<Series> list = new ArrayList<>();
-        
-        for (Day d : daysOfWeek) {
-            for (Series s : d.getSeriesList()) {
-                list.add(s);
-            }
+    public Series getSelectedSeries() {
+        return selectedSeries;
+    }
+
+    public void setSelectedSeries(Series selectedSeries) {
+        this.selectedSeries = selectedSeries;
+    }
+
+    public TreeNode printDay_0() {
+        try {
+            return daysOfWeek.get(0).getDayRoot();
+        } catch (IndexOutOfBoundsException e) {
+            return null;
         }
-        
-        return list;
+
+    }
+
+    public TreeNode printDay_1() {
+        try {
+            return daysOfWeek.get(1).getDayRoot();
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    public TreeNode printDay_2() {
+        try {
+            return daysOfWeek.get(2).getDayRoot();
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    public TreeNode printDay_3() {
+        try {
+            return daysOfWeek.get(3).getDayRoot();
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 }

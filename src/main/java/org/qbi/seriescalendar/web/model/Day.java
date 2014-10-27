@@ -6,9 +6,9 @@
 package org.qbi.seriescalendar.web.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 
 /**
  *
@@ -17,11 +17,12 @@ import java.util.Random;
 public class Day implements Serializable {
 
     protected String day;
-    protected List<Series> seriesList;
+    protected TreeNode dayRoot;
+    private final String nodeType = "dayLeaf";
 
     public Day() {
         day = "";
-        seriesList = new ArrayList<>();
+        dayRoot = new DefaultTreeNode("Root", "Root", null);
     }
 
     /**
@@ -31,12 +32,14 @@ public class Day implements Serializable {
      */
     public Day(String day) {
         this.day = day;
-        seriesList = new ArrayList<>();
         Random rnd = new Random();
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        this.dayRoot = new DefaultTreeNode("Root", "Root", null);
+        TreeNode node = null;
+        node = new DefaultTreeNode(nodeType, new Series(day, "" + rnd.nextInt(100)), dayRoot);
+        node = new DefaultTreeNode(nodeType, new Series(day, "" + rnd.nextInt(100)), dayRoot);
+        node = new DefaultTreeNode(nodeType, new Series(day, "" + rnd.nextInt(100)), dayRoot);
+        node = new DefaultTreeNode(nodeType, new Series(day, "" + rnd.nextInt(100)), dayRoot);
+        node = new DefaultTreeNode(nodeType, new Series(day, "" + rnd.nextInt(100)), dayRoot);
     }
 
     public String getDay() {
@@ -47,17 +50,32 @@ public class Day implements Serializable {
         this.day = day;
     }
 
-    public List<Series> getSeriesList() {
-        return seriesList;
+    public TreeNode getDayRoot() {
+        return dayRoot;
     }
 
-    public void setSeriesList(List<Series> seriesList) {
-        this.seriesList = seriesList;
+    public void setDayRoot(TreeNode dayRoot) {
+        this.dayRoot = dayRoot;
     }
+
+    public String getNodeType() {
+        return nodeType;
+    }
+    
+    
 
     @Override
     public String toString() {
-        return "Day{" + "day=" + day + ", series=" + seriesList + '}';
+        return "Day{" + "day=" + day + ", dayRoot=" + printNodes() + '}';
+    }
+
+    public String printNodes() {
+        StringBuilder sb = new StringBuilder();
+        for (TreeNode node : dayRoot.getChildren()) {
+            sb.append(node.toString());
+            sb.append(", ");
+        }
+        return sb.toString();
     }
 
 }

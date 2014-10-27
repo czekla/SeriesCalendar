@@ -18,7 +18,7 @@
                     width: 1220px;
                     margin: 10px auto;
                 }
-                .dayDataTable {
+                .dayDataTree {
                     width: 150px;
                     float: left;
                     margin: 10px;
@@ -28,75 +28,64 @@
     </h:head>  
 
     <h:body>
-        <p:growl id="growl" globalOnly="true" autoUpdate="true"/>
+        <p:growl id="growl" globalOnly="true" autoUpdate="true" showSummary="true" showDetail="true"/>
         <h:form id="weekForm">
 
             <p:panel id="weekData" header="Series Calendar" styleClass="weekDataTable">
-                <ui:repeat id="daysOfweek" var="daysOfweek" value="#{mBDayView.daysOfWeek}" varStatus="index">
-                    <p:dataTable id="dayTable" var="seriesList" value="#{daysOfweek.seriesList}" draggableRows="true" styleClass="dayDataTable">
-                        <f:facet name="header">#{daysOfweek.day}</f:facet>
-                        <p:column style="width:20px">
-                            <h:outputText  styleClass="ui-icon ui-icon-arrow-4" />
-                        </p:column>
-                        <p:column>
-                            <p:panel id="dragIcon">
-                                #{seriesList.title}
-                            </p:panel>
-                            <p:draggable for="dragIcon" revert="true" helper="clone" scope="series"/>
-                        </p:column>
-                    </p:dataTable>
-                    <p:droppable id="dayTableDrop" for="dayTable" tolerance="pointer" scope="series" datasource="daysTable"
-                                 activeStyleClass="ui-state-default" hoverStyleClass="ui-state-hover">
-                        <p:ajax listener="#{mBDragNDrop.onDragNDrop}"/>
-                    </p:droppable>
+                <ui:repeat id="daysOfweek" var="daysOfweek" value="#{mBDayView.daysOfWeek}" varStatus="status">
+
+                    <p:tree id="dayTree" var="seriesNode" value="#{daysOfweek.dayRoot}" styleClass="dayDataTree"
+                            selectionMode="single" selection="#{mBDayView.selectedSeries}"
+                            draggable="true" droppable="true" dragdropScope="daydrop" >
+                        <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
+                        <p:treeNode type="dayLeaf">
+                            #{seriesNode.title}
+                        </p:treeNode>
+                    </p:tree>
+
                 </ui:repeat>
+
+                <p:tree id="dayTree_0" var="seriesNode" value="#{mBDayView.printDay_0()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
+                        selectionMode="single" selection="#{mBDayView.selectedSeries}"
+                        draggable="true" droppable="true" dragdropScope="daydrop" >
+                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
+                    <p:treeNode type="dayLeaf">
+                        #{seriesNode.title}
+                    </p:treeNode>
+                </p:tree>
+                <p:tree id="dayTree_1" var="seriesNode" value="#{mBDayView.printDay_1()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
+                        selectionMode="single" selection="#{mBDayView.selectedSeries}"
+                        draggable="true" droppable="true" dragdropScope="daydrop" >
+                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
+                    <p:treeNode type="dayLeaf">
+                        #{seriesNode.title}
+                    </p:treeNode>
+                </p:tree>
+                <p:tree id="dayTree_2" var="seriesNode" value="#{mBDayView.printDay_2()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
+                        selectionMode="single" selection="#{mBDayView.selectedSeries}"
+                        draggable="true" droppable="true" dragdropScope="daydrop" >
+                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
+                    <p:treeNode type="dayLeaf">
+                        #{seriesNode.title}
+                    </p:treeNode>
+                </p:tree>
+                <p:tree id="dayTree_3" var="seriesNode" value="#{mBDayView.printDay_3()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
+                        selectionMode="single" selection="#{mBDayView.selectedSeries}"
+                        draggable="true" droppable="true" dragdropScope="daydrop" >
+                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
+                    <p:treeNode type="dayLeaf">
+                        #{seriesNode.title}
+                    </p:treeNode>
+                </p:tree>
+
                 <div style="clear: both;"></div>
                 <p:commandButton value="Update" process="@this" update="weekData" action="#{mBUpdateCalendar.update}"/>
                 <p:commandButton value="Save" process="@this weekData" action="#{mBSaveCalendar.save}" rendered="#{not empty mBDayView.daysOfWeek}"/>
                 <p:commandButton value="Clear" process="@this" update="weekData" action="#{mBUpdateCalendar.clear}" rendered="#{not empty mBDayView.daysOfWeek}"/>
 
-                <p:dataTable id="daysTable" var="seriesList" value="#{mBDayView.printSeries()}" >
-                    <p:column>
-                        #{seriesList.title}
-                    </p:column>
-                </p:dataTable>
             </p:panel>
 
-            <p:panel id="pnl" style="width: 200px; height: 200px;">
-                <p>Drop here...</p>
-            </p:panel>
-            <p:droppable id="pnlDrop" for="pnl" tolerance="pointer" scope="series" datasource="dayTable"
-                         activeStyleClass="ui-state-default" hoverStyleClass="ui-state-hover">
-                <p:ajax listener="#{mBDragNDrop.onDragNDrop}"/>
-            </p:droppable>
         </h:form>
-
-        <h:form id="form">
-            <p:dataTable id="tableX" var="seriesList" value="#{mBDayView.testDay.seriesList}" draggableRows="true">
-
-                <f:facet name="header">#{seriesList.day}</f:facet>
-                <p:column style="width:20px">
-                    <h:outputText  styleClass="ui-icon ui-icon-arrow-4" />
-                </p:column>
-                <p:column>
-                    <p:panel id="dragIconX">
-                        <f:attribute name="seriesDay" value="#{seriesList.day}"/>
-                        <f:attribute name="seriesTitle" value="#{seriesList.title}"/>
-                        #{seriesList.title}
-                    </p:panel>
-                    <p:draggable for="dragIconX" revert="true" helper="clone" scope="seriesX"/>
-                </p:column>
-            </p:dataTable>
-            <div style="clear: both;"></div>
-            <p:panel id="pnlX" style="width: 200px; height: 200px;">
-                <p>Drop here...</p>
-            </p:panel>
-            <p:droppable id="pnlDropX" for="pnlX" tolerance="pointer" scope="seriesX"  datasource="tableX"
-                         activeStyleClass="ui-state-default" hoverStyleClass="ui-state-hover">
-                <p:ajax listener="#{mBDragNDrop.onDragNDrop}"/>
-            </p:droppable>
-        </h:form>
-
 
     </h:body>  
 </html> 
