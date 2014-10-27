@@ -32,8 +32,7 @@
         <h:form id="weekForm">
 
             <p:panel id="weekData" header="Series Calendar" styleClass="weekDataTable">
-                <ui:repeat id="daysOfweek" var="daysOfweek" value="#{mBDayView.daysOfWeek}" varStatus="status">
-
+                <ui:repeat id="daysOfweek" var="daysOfweek" value="#{mBDayView.daysOfWeek}">
                     <p:tree id="dayTree" var="seriesNode" value="#{daysOfweek.dayRoot}" styleClass="dayDataTree"
                             selectionMode="single" selection="#{mBDayView.selectedSeries}"
                             draggable="true" droppable="true" dragdropScope="daydrop" >
@@ -42,9 +41,10 @@
                             #{seriesNode.title}
                         </p:treeNode>
                     </p:tree>
-
                 </ui:repeat>
 
+                <div style="clear: both;"></div>
+                
                 <p:tree id="dayTree_0" var="seriesNode" value="#{mBDayView.printDay_0()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
                         selectionMode="single" selection="#{mBDayView.selectedSeries}"
                         draggable="true" droppable="true" dragdropScope="daydrop" >
@@ -70,6 +70,30 @@
                     </p:treeNode>
                 </p:tree>
                 <p:tree id="dayTree_3" var="seriesNode" value="#{mBDayView.printDay_3()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
+                        selectionMode="single" selection="#{mBDayView.selectedSeries}"
+                        draggable="true" droppable="true" dragdropScope="daydrop" >
+                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
+                    <p:treeNode type="dayLeaf">
+                        #{seriesNode.title}
+                    </p:treeNode>
+                </p:tree>
+                <p:tree id="dayTree_4" var="seriesNode" value="#{mBDayView.printDay_4()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
+                        selectionMode="single" selection="#{mBDayView.selectedSeries}"
+                        draggable="true" droppable="true" dragdropScope="daydrop" >
+                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
+                    <p:treeNode type="dayLeaf">
+                        #{seriesNode.title}
+                    </p:treeNode>
+                </p:tree>
+                <p:tree id="dayTree_5" var="seriesNode" value="#{mBDayView.printDay_5()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
+                        selectionMode="single" selection="#{mBDayView.selectedSeries}"
+                        draggable="true" droppable="true" dragdropScope="daydrop" >
+                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
+                    <p:treeNode type="dayLeaf">
+                        #{seriesNode.title}
+                    </p:treeNode>
+                </p:tree>
+                <p:tree id="dayTree_6" var="seriesNode" value="#{mBDayView.printDay_6()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
                         selectionMode="single" selection="#{mBDayView.selectedSeries}"
                         draggable="true" droppable="true" dragdropScope="daydrop" >
                     <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>

@@ -32,13 +32,13 @@ public class MBDayView implements Serializable {
     public void init() {
 
         daysOfWeek = new ArrayList<>();
-//        daysOfWeek.add(new Day("Monday"));
-//        daysOfWeek.add(new Day("Tuesday"));
-//        daysOfWeek.add(new Day("Wednesday"));
-//        daysOfWeek.add(new Day("Thursday"));
-//        daysOfWeek.add(new Day("Friday"));
-//        daysOfWeek.add(new Day("Saturday"));
-//        daysOfWeek.add(new Day("Sunday"));
+//        daysOfWeek.add(new Day());
+//        daysOfWeek.add(new Day());
+//        daysOfWeek.add(new Day());
+//        daysOfWeek.add(new Day());
+//        daysOfWeek.add(new Day());
+//        daysOfWeek.add(new Day());
+//        daysOfWeek.add(new Day());
         testDay = new Day("Test");
     }
 
@@ -72,7 +72,6 @@ public class MBDayView implements Serializable {
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
-
     }
 
     public TreeNode printDay_1() {
@@ -94,6 +93,30 @@ public class MBDayView implements Serializable {
     public TreeNode printDay_3() {
         try {
             return daysOfWeek.get(3).getDayRoot();
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+    
+    public TreeNode printDay_4() {
+        try {
+            return daysOfWeek.get(4).getDayRoot();
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+    
+    public TreeNode printDay_5() {
+        try {
+            return daysOfWeek.get(5).getDayRoot();
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+    
+    public TreeNode printDay_6() {
+        try {
+            return daysOfWeek.get(6).getDayRoot();
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
