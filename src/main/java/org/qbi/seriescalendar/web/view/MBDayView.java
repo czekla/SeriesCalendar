@@ -9,9 +9,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import org.primefaces.event.SelectEvent;
+import javax.faces.context.FacesContext;
 import org.primefaces.model.TreeNode;
 import org.qbi.seriescalendar.web.model.Day;
 import org.qbi.seriescalendar.web.model.Series;
@@ -26,7 +27,7 @@ public class MBDayView implements Serializable {
 
     private List<Day> daysOfWeek;
     private Day testDay;
-    private Series selectedSeries;
+    private TreeNode selectedSeries;
 
     @PostConstruct
     public void init() {
@@ -58,11 +59,11 @@ public class MBDayView implements Serializable {
         this.testDay = testDay;
     }
 
-    public Series getSelectedSeries() {
+    public TreeNode getSelectedSeries() {
         return selectedSeries;
     }
 
-    public void setSelectedSeries(Series selectedSeries) {
+    public void setSelectedSeries(TreeNode selectedSeries) {
         this.selectedSeries = selectedSeries;
     }
 
