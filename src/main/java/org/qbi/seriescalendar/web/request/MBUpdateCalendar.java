@@ -12,7 +12,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import org.qbi.seriescalendar.web.model.Day;
-import org.qbi.seriescalendar.web.view.MBDayView;
+import org.qbi.seriescalendar.web.session.MBWeekView;
 
 /**
  *
@@ -22,8 +22,8 @@ import org.qbi.seriescalendar.web.view.MBDayView;
 @RequestScoped
 public class MBUpdateCalendar implements Serializable {
 
-    @ManagedProperty("#{mBDayView}")
-    private MBDayView dayView;
+    @ManagedProperty("#{mBWeekView}")
+    private MBWeekView weekView;
 
     public void update() {
 
@@ -37,22 +37,23 @@ public class MBUpdateCalendar implements Serializable {
         days.add(new Day("Saturday"));
         days.add(new Day("Sunday"));
 
-        dayView.setDaysOfWeek(days);
+        weekView.setDaysOfWeek(days);
+        
     }
 
     public void clear() {
         System.out.println("clear");
         List<Day> days = new ArrayList<>();
 
-        dayView.setDaysOfWeek(days);
+        weekView.setDaysOfWeek(days);
     }
 
-    public MBDayView getDayView() {
-        return dayView;
+    public MBWeekView getWeekView() {
+        return weekView;
     }
 
-    public void setDayView(MBDayView dayView) {
-        this.dayView = dayView;
+    public void setWeekView(MBWeekView weekView) {
+        this.weekView = weekView;
     }
 
 }

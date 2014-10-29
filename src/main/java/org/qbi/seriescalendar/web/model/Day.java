@@ -6,9 +6,9 @@
 package org.qbi.seriescalendar.web.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-import org.primefaces.model.DefaultTreeNode;
-import org.primefaces.model.TreeNode;
 
 /**
  *
@@ -17,29 +17,30 @@ import org.primefaces.model.TreeNode;
 public class Day implements Serializable {
 
     protected String day;
-    protected TreeNode dayRoot;
-    private final String nodeType = "dayLeaf";
+    protected List<Series> seriesList;
 
     public Day() {
         day = "";
-        dayRoot = new DefaultTreeNode("Root", "Root", null);
+        seriesList = new ArrayList<>();
     }
 
-    /**
-     * Creates a new instance of SeriesDay
-     *
-     * @param day
-     */
     public Day(String day) {
         this.day = day;
+        seriesList = new ArrayList<>();
+        
+        //TODO: move this to updatecalendar
         Random rnd = new Random();
-        this.dayRoot = new DefaultTreeNode("Root", "Root", null);
-        TreeNode node = null;
-        node = new DefaultTreeNode(nodeType, new Series(day, "" + rnd.nextInt(100)), dayRoot);
-        node = new DefaultTreeNode(nodeType, new Series(day, "" + rnd.nextInt(100)), dayRoot);
-        node = new DefaultTreeNode(nodeType, new Series(day, "" + rnd.nextInt(100)), dayRoot);
-        node = new DefaultTreeNode(nodeType, new Series(day, "" + rnd.nextInt(100)), dayRoot);
-        node = new DefaultTreeNode(nodeType, new Series(day, "" + rnd.nextInt(100)), dayRoot);
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+    }
+
+    public Day(String day, List<Series> seriesList) {
+        this.day = day;
+        this.seriesList = seriesList;
     }
 
     public String getDay() {
@@ -50,32 +51,17 @@ public class Day implements Serializable {
         this.day = day;
     }
 
-    public TreeNode getDayRoot() {
-        return dayRoot;
+    public List<Series> getSeriesList() {
+        return seriesList;
     }
 
-    public void setDayRoot(TreeNode dayRoot) {
-        this.dayRoot = dayRoot;
+    public void setSeriesList(List<Series> seriesList) {
+        this.seriesList = seriesList;
     }
-
-    public String getNodeType() {
-        return nodeType;
-    }
-    
-    
 
     @Override
     public String toString() {
-        return "Day{" + "day=" + day + ", dayRoot=" + printNodes() + '}';
-    }
-
-    public String printNodes() {
-        StringBuilder sb = new StringBuilder();
-        for (TreeNode node : dayRoot.getChildren()) {
-            sb.append(node.toString());
-            sb.append(", ");
-        }
-        return sb.toString();
+        return "Day{" + "day=" + day + ", seriesList=" + seriesList + '}';
     }
 
 }

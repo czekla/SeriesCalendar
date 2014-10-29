@@ -24,35 +24,21 @@ public class MBSeriesEventHandler {
 
     @ManagedProperty("#{mBDayView}")
     private MBDayView dayView;
-    
+
     final static Logger logger = Logger.getLogger(MBDragNDrop.class);
 
     public void displaySelectedNode() {
 
         logger.debug("display");
-        TreeNode selectedNode = dayView.getSelectedSeries();
-        
-        logger.debug(selectedNode);
 
-        if (selectedNode != null) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", selectedNode.getData().toString());
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        }
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", "");
+        FacesContext.getCurrentInstance().addMessage(null, message);
 
     }
 
     public void deleteNode() {
 
         logger.debug("delete");
-        TreeNode selectedNode = dayView.getSelectedSeries();
-        
-        logger.debug(selectedNode);
-        
-        selectedNode.getChildren().clear();
-        selectedNode.getParent().getChildren().remove(selectedNode);
-        selectedNode.setParent(null);
-
-        selectedNode = null;
 
     }
 

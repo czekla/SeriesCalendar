@@ -32,86 +32,48 @@
         <h:form id="weekForm">
 
             <p:panel id="weekData" header="Series Calendar" styleClass="weekDataTable">
-                <ui:repeat id="daysOfweek" var="daysOfweek" value="#{mBDayView.daysOfWeek}">
-                    <p:tree id="dayTree" var="seriesNode" value="#{daysOfweek.dayRoot}" styleClass="dayDataTree" 
-                            selectionMode="single" selection="#{mBDayView.selectedSeries}"
-                            draggable="true" droppable="true" dragdropScope="daydrop" >
-                        <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
-                        <p:treeNode type="dayLeaf">
-                            #{seriesNode.title}
-                        </p:treeNode>
-                    </p:tree>
-                </ui:repeat>
 
-                <div style="clear: both;"></div>
+                <p:ring id="weekRing" value="#{mBWeekView.daysOfWeek}" var="dayOfWeek" easing="easeInOutBack">
+                    <p:outputPanel style="text-align: center;" layout="block">
+                        <div style="padding: 3px;">#{dayOfWeek.day}</div>
+                        <p:commandButton update=":weekForm:dayDetail" action="#{mBUpdateDay.update()}" icon="ui-icon-search" title="View" oncomplete="PF('dayDialog').show();">
+                            <f:setPropertyActionListener value="#{dayOfWeek}" target="#{mBWeekView.selectedDay}" />
+                        </p:commandButton>
+                    </p:outputPanel>
+                </p:ring>
 
-                <p:tree id="dayTree_0" var="seriesNode" value="#{mBDayView.printDay_0()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
-                        selectionMode="single" selection="#{mBDayView.selectedSeries}" 
-                        draggable="true" droppable="true" dragdropScope="daydrop" >
-                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
-                    <p:ajax event="select" listener="#{mBSeriesEventHandler.displaySelectedNode}" />
-                    <p:treeNode type="dayLeaf">
-                        #{seriesNode.title}
-                    </p:treeNode>
-                </p:tree>
-                <p:contextMenu id="dayTree_0_CM" for="dayTree_0">
-                    <p:menuitem value="Edit"  actionListener="#{mBSeriesEventHandler.displaySelectedNode}" icon="ui-icon-search" />
-                    <p:menuitem value="Delete" update=":weekForm:weekData" actionListener="#{mBSeriesEventHandler.deleteNode}" icon="ui-icon-close"/>
-                </p:contextMenu>
+                <p:dialog header="Day Info" widgetVar="dayDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="700">
 
-                <p:tree id="dayTree_1" var="seriesNode" value="#{mBDayView.printDay_1()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
-                        selectionMode="single" selection="#{mBDayView.selectedSeries}"
-                        draggable="true" droppable="true" dragdropScope="daydrop" >
-                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
-                    <p:treeNode type="dayLeaf">
-                        #{seriesNode.title}
-                    </p:treeNode>
-                </p:tree>
-                <p:tree id="dayTree_2" var="seriesNode" value="#{mBDayView.printDay_2()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
-                        selectionMode="single" selection="#{mBDayView.selectedSeries}"
-                        draggable="true" droppable="true" dragdropScope="daydrop" >
-                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
-                    <p:treeNode type="dayLeaf">
-                        #{seriesNode.title}
-                    </p:treeNode>
-                </p:tree>
-                <p:tree id="dayTree_3" var="seriesNode" value="#{mBDayView.printDay_3()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
-                        selectionMode="single" selection="#{mBDayView.selectedSeries}"
-                        draggable="true" droppable="true" dragdropScope="daydrop" >
-                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
-                    <p:treeNode type="dayLeaf">
-                        #{seriesNode.title}
-                    </p:treeNode>
-                </p:tree>
-                <p:tree id="dayTree_4" var="seriesNode" value="#{mBDayView.printDay_4()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
-                        selectionMode="single" selection="#{mBDayView.selectedSeries}"
-                        draggable="true" droppable="true" dragdropScope="daydrop" >
-                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
-                    <p:treeNode type="dayLeaf">
-                        #{seriesNode.title}
-                    </p:treeNode>
-                </p:tree>
-                <p:tree id="dayTree_5" var="seriesNode" value="#{mBDayView.printDay_5()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
-                        selectionMode="single" selection="#{mBDayView.selectedSeries}"
-                        draggable="true" droppable="true" dragdropScope="daydrop" >
-                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
-                    <p:treeNode type="dayLeaf">
-                        #{seriesNode.title}
-                    </p:treeNode>
-                </p:tree>
-                <p:tree id="dayTree_6" var="seriesNode" value="#{mBDayView.printDay_6()}" styleClass="dayDataTree" rendered="#{not empty mBDayView.daysOfWeek}"
-                        selectionMode="single" selection="#{mBDayView.selectedSeries}"
-                        draggable="true" droppable="true" dragdropScope="daydrop" >
-                    <p:ajax event="dragdrop" listener="#{mBDragNDrop.onDragNDrop}" update=":weekForm:weekData"/>
-                    <p:treeNode type="dayLeaf">
-                        #{seriesNode.title}
-                    </p:treeNode>
-                </p:tree>
+                    <p:dataTable id="dayDetail" value="#{mBDayView.seriesList}" var="series" 
+                                 editable="true" draggableRows="true">
+                        <f:facet name="header">#{mBDayView.seriesDay}</f:facet>
+                        
+                        <p:ajax event="rowEdit"/>
+                        <p:ajax event="rowEditCancel"/>
+                        <p:ajax event="rowReorder"/>
+                        
+                        <p:column width="32">
+                            <p:rowEditor />
+                        </p:column>
+                        <p:column>
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{series.title}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{series.title}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>  
+                        <p:column width="100">
+                            <p:commandButton value="Torrent"/>
+                        </p:column>
+                        <p:column width="100">
+                            <p:commandButton value="Felirat"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:dialog>
 
                 <div style="clear: both;"></div>
                 <p:commandButton value="Update" process="@this" update="weekData" action="#{mBUpdateCalendar.update}"/>
-                <p:commandButton value="Save" process="@this weekData" action="#{mBSaveCalendar.save}" rendered="#{not empty mBDayView.daysOfWeek}"/>
-                <p:commandButton value="Clear" process="@this" update="weekData" action="#{mBUpdateCalendar.clear}" rendered="#{not empty mBDayView.daysOfWeek}"/>
+                <p:commandButton value="Save" process="@this weekData" action="#{mBSaveCalendar.save}" rendered="#{not empty mBWeekView.daysOfWeek}"/>
+                <p:commandButton value="Clear" process="@this" update="weekData" action="#{mBUpdateCalendar.clear}" rendered="#{not empty mBWeekView.daysOfWeek}"/>
 
             </p:panel>
 

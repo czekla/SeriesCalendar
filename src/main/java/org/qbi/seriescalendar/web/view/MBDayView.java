@@ -5,16 +5,14 @@
  */
 package org.qbi.seriescalendar.web.view;
 
+import org.qbi.seriescalendar.web.session.MBWeekView;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import org.primefaces.model.TreeNode;
-import org.qbi.seriescalendar.web.model.Day;
+import org.apache.log4j.Logger;
 import org.qbi.seriescalendar.web.model.Series;
 
 /**
@@ -25,101 +23,50 @@ import org.qbi.seriescalendar.web.model.Series;
 @ViewScoped
 public class MBDayView implements Serializable {
 
-    private List<Day> daysOfWeek;
-    private Day testDay;
-    private TreeNode selectedSeries;
+    private List<Series> seriesList;
+    private Series selectedSeries;
+    private String seriesDay;
+
+    @ManagedProperty("#{mBWeekView}")
+    private MBWeekView weekView;
+    
+    final static Logger logger = Logger.getLogger(MBDayView.class);
 
     @PostConstruct
     public void init() {
 
-        daysOfWeek = new ArrayList<>();
-//        daysOfWeek.add(new Day());
-//        daysOfWeek.add(new Day());
-//        daysOfWeek.add(new Day());
-//        daysOfWeek.add(new Day());
-//        daysOfWeek.add(new Day());
-//        daysOfWeek.add(new Day());
-//        daysOfWeek.add(new Day());
-        testDay = new Day("Test");
     }
 
-    public List<Day> getDaysOfWeek() {
-        return daysOfWeek;
+    public List<Series> getSeriesList() {
+        return seriesList;
     }
 
-    public void setDaysOfWeek(List<Day> daysOfWeek) {
-        this.daysOfWeek = daysOfWeek;
+    public void setSeriesList(List<Series> seriesList) {
+        this.seriesList = seriesList;
     }
 
-    public Day getTestDay() {
-        return testDay;
-    }
-
-    public void setTestDay(Day testDay) {
-        this.testDay = testDay;
-    }
-
-    public TreeNode getSelectedSeries() {
+    public Series getSelectedSeries() {
         return selectedSeries;
     }
 
-    public void setSelectedSeries(TreeNode selectedSeries) {
+    public void setSelectedSeries(Series selectedSeries) {
         this.selectedSeries = selectedSeries;
     }
 
-    public TreeNode printDay_0() {
-        try {
-            return daysOfWeek.get(0).getDayRoot();
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
+    public String getSeriesDay() {
+        return seriesDay;
     }
 
-    public TreeNode printDay_1() {
-        try {
-            return daysOfWeek.get(1).getDayRoot();
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
+    public void setSeriesDay(String seriesDay) {
+        this.seriesDay = seriesDay;
     }
 
-    public TreeNode printDay_2() {
-        try {
-            return daysOfWeek.get(2).getDayRoot();
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
+    public MBWeekView getWeekView() {
+        return weekView;
     }
 
-    public TreeNode printDay_3() {
-        try {
-            return daysOfWeek.get(3).getDayRoot();
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
+    public void setWeekView(MBWeekView weekView) {
+        this.weekView = weekView;
     }
-    
-    public TreeNode printDay_4() {
-        try {
-            return daysOfWeek.get(4).getDayRoot();
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-    
-    public TreeNode printDay_5() {
-        try {
-            return daysOfWeek.get(5).getDayRoot();
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-    
-    public TreeNode printDay_6() {
-        try {
-            return daysOfWeek.get(6).getDayRoot();
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-    }
+
 }
