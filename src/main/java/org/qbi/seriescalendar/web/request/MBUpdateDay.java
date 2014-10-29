@@ -9,9 +9,13 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import org.apache.log4j.Logger;
+import org.primefaces.event.RowEditEvent;
 import org.qbi.seriescalendar.web.model.Day;
 import org.qbi.seriescalendar.web.model.Series;
 import org.qbi.seriescalendar.web.view.MBDayView;
@@ -52,17 +56,34 @@ public class MBUpdateDay implements Serializable {
         dayView.setSeriesList(seriesList);
     }
 
+    public void add() {
+        seriesList.add(new Series(seriesDay, "New"));
+
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "A new series has been added to " + seriesDay + ".", "Please scroll down!");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
     public void delete() {
         logger.debug("delete day");
         logger.debug(selectedDay);
-        
+        String deletedSeriesTitle = dayView.getSelectedSeries().getTitle();
         seriesList.remove(dayView.getSelectedSeries());
         dayView.setSelectedSeries(null);
-//        dayView.setSeriesList(seriesList);
+
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, deletedSeriesTitle + " has been deleted from " + seriesDay + "!", "");
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public void moveTo() {
+    public void moveTo(ActionEvent event) {
+        String dayTo = (String) event.getComponent().getAttributes().get("dayTo");
+        selectedDay.setDay(dayTo);
+        
+    }
 
+    public void onRowEdit(RowEditEvent event) {
+        Series series = (Series) event.getObject();
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, series.getTitle() + " has been saved.", "");
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     public MBWeekView getWeekView() {

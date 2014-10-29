@@ -52,37 +52,46 @@
                 <p:dialog header="Day Info" widgetVar="dayDialog" modal="true" 
                           showEffect="fade" hideEffect="fade" resizable="true" 
                           width="700">
-                        <p:dataTable id="dayDetail" value="#{mBDayView.seriesList}" var="series" 
-                                     selectionMode="single" selection="#{mBDayView.selectedSeries}" rowKey="#{series.id}"
-                                     editable="true" draggableRows="true"
-                                     scrollable="true" scrollHeight="400">
-                            <f:facet name="header">#{mBDayView.seriesDay}</f:facet>
+                    <p:dataTable id="dayDetail" value="#{mBDayView.seriesList}" var="series" 
+                                 selectionMode="single" selection="#{mBDayView.selectedSeries}" rowKey="#{series.id}"
+                                 editable="true" draggableRows="true"
+                                 scrollable="true" scrollHeight="400">
+                        <f:facet name="header">#{mBDayView.seriesDay}</f:facet>
 
-                            <p:ajax event="rowEdit"/>
-                            <p:ajax event="rowEditCancel"/>
-                            <p:ajax event="rowReorder"/>
+                        <p:ajax event="rowEdit" listener="#{mBUpdateDay.onRowEdit}"/>
+                        <p:ajax event="rowEditCancel"/>
+                        <p:ajax event="rowReorder"/>
 
-                            <p:column width="32">
-                                <p:rowEditor />
-                            </p:column>
-                            <p:column>
-                                <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="#{series.title}" /></f:facet>
-                                    <f:facet name="input"><p:inputText value="#{series.title}" style="width:90%"/></f:facet>
-                                </p:cellEditor>
-                            </p:column>  
-                            <p:column width="70" headerText="Torrent" style="text-align: center">
-                                <p:button href="#{series.torrentLink}" target="_blank" icon="ui-icon-disk"/>
-                            </p:column>
-                            <p:column width="70" headerText="Subtitle" style="text-align: center">
-                                <p:button href="#{series.subtitleLink}" target="_blank" icon="ui-icon-comment"/>
-                            </p:column>
-                        </p:dataTable>
+                        <p:column headerText="Edit" width="32">
+                            <p:rowEditor />
+                        </p:column>
+
+                        <p:column>
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{series.title}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{series.title}" style="width:90%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>  
+
+                        <p:column width="70" headerText="Torrent" style="text-align: center">
+                            <p:button href="#{series.torrentLink}" target="_blank" icon="ui-icon-disk"/>
+                        </p:column>
+
+                        <p:column width="70" headerText="Subtitle" style="text-align: center">
+                            <p:button href="#{series.subtitleLink}" target="_blank" icon="ui-icon-comment"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Add" icon="ui-icon-plus" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.add()}"/>
+                        </f:facet>
+                    </p:dataTable>
 
                     <p:contextMenu for="dayDetail">
                         <p:submenu label="Move to:" icon="ui-icon-transferthick-e-w">
                             <p:menuitem value="Monday" icon="ui-icon-arrowthick-1-e"/>
-                            <p:menuitem value="Tuesday" icon="ui-icon-arrowthick-1-e"/>
+                            <p:menuitem value="Tuesday" icon="ui-icon-arrowthick-1-e" actionListener="#{mBUpdateDay.moveTo}">
+                                <f:attribute name="dayTo" value="Tuesday"/>
+                            </p:menuitem>
                             <p:menuitem value="Wednesday" icon="ui-icon-arrowthick-1-e"/>
                             <p:menuitem value="Thursday" icon="ui-icon-arrowthick-1-e"/>
                             <p:menuitem value="Friday" icon="ui-icon-arrowthick-1-e"/>
