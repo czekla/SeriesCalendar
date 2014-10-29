@@ -23,6 +23,13 @@
                     float: left;
                     margin: 10px;
                 }
+                .ui-cell-editor {
+                    display: inline-block;
+                }
+                .scrollPanel {
+                    max-width: 100%;
+                    max-height: 600px;
+                }
             </style>
         </f:facet>
     </h:head>  
@@ -42,32 +49,49 @@
                     </p:outputPanel>
                 </p:ring>
 
-                <p:dialog header="Day Info" widgetVar="dayDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="700">
+                <p:dialog header="Day Info" widgetVar="dayDialog" modal="true" 
+                          showEffect="fade" hideEffect="fade" resizable="true" 
+                          width="700">
+                        <p:dataTable id="dayDetail" value="#{mBDayView.seriesList}" var="series" 
+                                     selectionMode="single" selection="#{mBDayView.selectedSeries}" rowKey="#{series.id}"
+                                     editable="true" draggableRows="true"
+                                     scrollable="true" scrollHeight="400">
+                            <f:facet name="header">#{mBDayView.seriesDay}</f:facet>
 
-                    <p:dataTable id="dayDetail" value="#{mBDayView.seriesList}" var="series" 
-                                 editable="true" draggableRows="true">
-                        <f:facet name="header">#{mBDayView.seriesDay}</f:facet>
-                        
-                        <p:ajax event="rowEdit"/>
-                        <p:ajax event="rowEditCancel"/>
-                        <p:ajax event="rowReorder"/>
-                        
-                        <p:column width="32">
-                            <p:rowEditor />
-                        </p:column>
-                        <p:column>
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{series.title}" /></f:facet>
-                                <f:facet name="input"><p:inputText value="#{series.title}" style="width:100%"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>  
-                        <p:column width="100">
-                            <p:commandButton value="Torrent"/>
-                        </p:column>
-                        <p:column width="100">
-                            <p:commandButton value="Felirat"/>
-                        </p:column>
-                    </p:dataTable>
+                            <p:ajax event="rowEdit"/>
+                            <p:ajax event="rowEditCancel"/>
+                            <p:ajax event="rowReorder"/>
+
+                            <p:column width="32">
+                                <p:rowEditor />
+                            </p:column>
+                            <p:column>
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{series.title}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{series.title}" style="width:90%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>  
+                            <p:column width="70" headerText="Torrent" style="text-align: center">
+                                <p:button href="#{series.torrentLink}" target="_blank" icon="ui-icon-disk"/>
+                            </p:column>
+                            <p:column width="70" headerText="Subtitle" style="text-align: center">
+                                <p:button href="#{series.subtitleLink}" target="_blank" icon="ui-icon-comment"/>
+                            </p:column>
+                        </p:dataTable>
+
+                    <p:contextMenu for="dayDetail">
+                        <p:submenu label="Move to:" icon="ui-icon-transferthick-e-w">
+                            <p:menuitem value="Monday" icon="ui-icon-arrowthick-1-e"/>
+                            <p:menuitem value="Tuesday" icon="ui-icon-arrowthick-1-e"/>
+                            <p:menuitem value="Wednesday" icon="ui-icon-arrowthick-1-e"/>
+                            <p:menuitem value="Thursday" icon="ui-icon-arrowthick-1-e"/>
+                            <p:menuitem value="Friday" icon="ui-icon-arrowthick-1-e"/>
+                            <p:menuitem value="Saturday" icon="ui-icon-arrowthick-1-e"/>
+                            <p:menuitem value="Sunday" icon="ui-icon-arrowthick-1-e"/>
+                        </p:submenu>
+                        <p:menuitem value="Delete" icon="ui-icon-trash" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.delete()}"/>
+                    </p:contextMenu>
+
                 </p:dialog>
 
                 <div style="clear: both;"></div>

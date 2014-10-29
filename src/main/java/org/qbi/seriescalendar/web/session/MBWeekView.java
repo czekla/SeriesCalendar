@@ -23,11 +23,12 @@ public class MBWeekView implements Serializable {
 
     private List<Day> daysOfWeek;
     private Day selectedDay;
+
     @PostConstruct
     public void init() {
 
         System.out.println("init");
-        
+
     }
 
     public List<Day> getDaysOfWeek() {

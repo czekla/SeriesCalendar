@@ -36,6 +36,15 @@ public class Day implements Serializable {
         seriesList.add(new Series(day, "" + rnd.nextInt(100)));
         seriesList.add(new Series(day, "" + rnd.nextInt(100)));
         seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
     }
 
     public Day(String day, List<Series> seriesList) {

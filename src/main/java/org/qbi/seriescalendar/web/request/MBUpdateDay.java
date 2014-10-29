@@ -7,6 +7,7 @@ package org.qbi.seriescalendar.web.request;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -26,21 +27,42 @@ public class MBUpdateDay implements Serializable {
 
     @ManagedProperty("#{mBWeekView}")
     private MBWeekView weekView;
-    
+
     @ManagedProperty("#{mBDayView}")
     private MBDayView dayView;
 
+    private Day selectedDay;
+    private String seriesDay;
+    private List<Series> seriesList;
 
     final static Logger logger = Logger.getLogger(MBUpdateDay.class);
 
+    @PostConstruct
+    public void init() {
+        selectedDay = weekView.getSelectedDay();
+        seriesDay = selectedDay.getDay();
+        seriesList = selectedDay.getSeriesList();
+    }
+
     public void update() {
-        System.out.println("update day");
-        logger.debug(weekView.getSelectedDay());
-        String seriesDay = weekView.getSelectedDay().getDay();
-        List<Series> seriesList = weekView.getSelectedDay().getSeriesList();
-        
+        logger.debug("update day");
+        logger.debug(selectedDay);
+
         dayView.setSeriesDay(seriesDay);
         dayView.setSeriesList(seriesList);
+    }
+
+    public void delete() {
+        logger.debug("delete day");
+        logger.debug(selectedDay);
+        
+        seriesList.remove(dayView.getSelectedSeries());
+        dayView.setSelectedSeries(null);
+//        dayView.setSeriesList(seriesList);
+    }
+
+    public void moveTo() {
+
     }
 
     public MBWeekView getWeekView() {
@@ -59,5 +81,4 @@ public class MBUpdateDay implements Serializable {
         this.dayView = dayView;
     }
 
-    
 }
