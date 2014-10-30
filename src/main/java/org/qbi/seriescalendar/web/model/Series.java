@@ -36,8 +36,8 @@ public class Series implements Serializable {
     }
 
     public void setLinks() {
-        torrentLink = "http://thepiratebay.se/";
-        subtitleLink = "http://www.feliratok.info/";
+        torrentLink = "http://thepiratebay.se/search/" + title.replaceAll(" ", "%20") + "/0/99/0";
+        subtitleLink = "http://www.feliratok.info/?search=" + title.replaceAll(" ", "+");
     }
 
     public String getId() {
