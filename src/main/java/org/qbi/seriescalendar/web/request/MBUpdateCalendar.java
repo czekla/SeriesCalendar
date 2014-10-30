@@ -9,9 +9,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 import org.qbi.seriescalendar.web.model.Day;
+import org.qbi.seriescalendar.web.model.xml.ScheduleConverter;
 import org.qbi.seriescalendar.web.session.MBWeekView;
 
 /**
@@ -25,20 +30,22 @@ public class MBUpdateCalendar implements Serializable {
     @ManagedProperty("#{mBWeekView}")
     private MBWeekView weekView;
 
-    public void update() {
+    public void info() {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Please upload the schedule.xml file first!", "");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
+    }
+
+    public void update(FileUploadEvent event) {
 
         System.out.println("update");
-        List<Day> days = new ArrayList<>();
-        days.add(new Day("Monday"));
-        days.add(new Day("Tuesday"));
-        days.add(new Day("Wednesday"));
-        days.add(new Day("Thursday"));
-        days.add(new Day("Friday"));
-        days.add(new Day("Saturday"));
-        days.add(new Day("Sunday"));
 
-        weekView.setDaysOfWeek(days);
+        UploadedFile file = event.getFile();
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "upload.successful", file.getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
         
+        weekView.setDaysOfWeek(ScheduleConverter.convertToList(file));
+
     }
 
     public void clear() {

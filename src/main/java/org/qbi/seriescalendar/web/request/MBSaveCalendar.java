@@ -10,7 +10,9 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import org.primefaces.model.StreamedContent;
 import org.qbi.seriescalendar.web.model.Day;
+import org.qbi.seriescalendar.web.model.xml.ScheduleConverter;
 import org.qbi.seriescalendar.web.session.MBWeekView;
 
 /**
@@ -33,6 +35,11 @@ public class MBSaveCalendar implements Serializable {
             System.out.println(day);
         }
 
+    }
+
+    public StreamedContent export() {
+        System.out.println("export");
+        return ScheduleConverter.convertToXml(weekView.getDaysOfWeek());
     }
 
     public MBWeekView getWeekView() {

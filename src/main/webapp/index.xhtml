@@ -58,7 +58,7 @@
                                  scrollable="true" scrollHeight="400">
                         <f:facet name="header">#{mBDayView.seriesDay}</f:facet>
 
-                        <p:ajax event="rowEdit" listener="#{mBUpdateDay.onRowEdit}"/>
+                        <p:ajax event="rowEdit" listener="#{mBUpdateDay.onRowEdit()}"/>
                         <p:ajax event="rowEditCancel"/>
                         <p:ajax event="rowReorder"/>
 
@@ -66,7 +66,7 @@
                             <p:rowEditor />
                         </p:column>
 
-                        <p:column>
+                        <p:column sortBy="#{series.title}">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{series.title}" /></f:facet>
                                 <f:facet name="input"><p:inputText value="#{series.title}" style="width:90%"/></f:facet>
@@ -88,25 +88,25 @@
 
                     <p:contextMenu for="dayDetail">
                         <p:submenu label="Move to:" icon="ui-icon-transferthick-e-w">
-                            <p:menuitem value="Monday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
+                            <p:menuitem value="Monday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo()}">
                                 <f:attribute name="dayTo" value="Monday"/>
                             </p:menuitem>
-                            <p:menuitem value="Tuesday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
+                            <p:menuitem value="Tuesday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo()}">
                                 <f:attribute name="dayTo" value="Tuesday"/>
                             </p:menuitem>
-                            <p:menuitem value="Wednesday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
+                            <p:menuitem value="Wednesday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo()}">
                                 <f:attribute name="dayTo" value="Wednesday"/>
                             </p:menuitem>
-                            <p:menuitem value="Thursday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
+                            <p:menuitem value="Thursday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo()}">
                                 <f:attribute name="dayTo" value="Thursday"/>
                             </p:menuitem>
-                            <p:menuitem value="Friday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
+                            <p:menuitem value="Friday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo()}">
                                 <f:attribute name="dayTo" value="Friday"/>
                             </p:menuitem>
-                            <p:menuitem value="Saturday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
+                            <p:menuitem value="Saturday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo()}">
                                 <f:attribute name="dayTo" value="Saturday"/>
                             </p:menuitem>
-                            <p:menuitem value="Sunday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
+                            <p:menuitem value="Sunday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo()}">
                                 <f:attribute name="dayTo" value="Sunday"/>
                             </p:menuitem>
                         </p:submenu>
@@ -116,9 +116,19 @@
                 </p:dialog>
 
                 <div style="clear: both;"></div>
-                <p:commandButton value="Update" process="@this" update="weekData" action="#{mBUpdateCalendar.update}"/>
+                <p:commandButton value="Update" actionListener="#{mBUpdateCalendar.info()}" oncomplete="PF('fileUploadDialog').show();"/>
                 <p:commandButton value="Save" process="@this weekData" action="#{mBSaveCalendar.save}" rendered="#{not empty mBWeekView.daysOfWeek}"/>
                 <p:commandButton value="Clear" process="@this" update="weekData" action="#{mBUpdateCalendar.clear}" rendered="#{not empty mBWeekView.daysOfWeek}"/>
+                <p:commandButton value="Export to xml" icon="ui-icon-arrowthick-1-s" ajax="false" rendered="#{not empty mBWeekView.daysOfWeek}" style="float: right">
+                    <p:fileDownload value="#{mBSaveCalendar.export()}"/>
+                </p:commandButton>
+                <p:dialog header="Upload" widgetVar="fileUploadDialog" modal="true" 
+                          showEffect="fade" hideEffect="fade" resizable="true">
+                    <p:fileUpload auto="true" allowTypes="/(\.|\/)(xml)$/" update="weekData" 
+                                  fileUploadListener="#{mBUpdateCalendar.update}" 
+                                  oncomplete="PF('fileUploadDialog').hide();"/>
+                </p:dialog>
+
 
             </p:panel>
 

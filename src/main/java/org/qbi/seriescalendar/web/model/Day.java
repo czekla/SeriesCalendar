@@ -27,24 +27,24 @@ public class Day implements Serializable {
     public Day(String day) {
         this.day = day;
         seriesList = new ArrayList<>();
-        
-        //TODO: move this to updatecalendar
-        Random rnd = new Random();
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
-        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        
+//        //TODO: move this to updatecalendar
+//        Random rnd = new Random();
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
+//        seriesList.add(new Series(day, "" + rnd.nextInt(100)));
     }
 
     public Day(String day, List<Series> seriesList) {
