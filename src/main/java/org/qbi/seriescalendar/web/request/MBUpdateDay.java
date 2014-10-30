@@ -75,9 +75,14 @@ public class MBUpdateDay implements Serializable {
     }
 
     public void moveTo(ActionEvent event) {
+        logger.debug("move to");
         String dayTo = (String) event.getComponent().getAttributes().get("dayTo");
-        selectedDay.setDay(dayTo);
-        
+        Day moveToDay = weekView.getDayByName(dayTo);
+        Series selectedSeries = dayView.getSelectedSeries();
+        selectedSeries.setDay(dayTo);
+        moveToDay.getSeriesList().add(selectedSeries);
+        seriesList.remove(selectedSeries);
+        dayView.setSelectedSeries(null);
     }
 
     public void onRowEdit(RowEditEvent event) {

@@ -47,4 +47,13 @@ public class MBWeekView implements Serializable {
         this.selectedDay = selectedDay;
     }
 
+    public Day getDayByName(String day) {
+        for (Day dayOfWeek : daysOfWeek) {
+            if (dayOfWeek.getDay().equals(day)) {
+                return dayOfWeek;
+            }
+        }
+        return null;
+    }
+
 }

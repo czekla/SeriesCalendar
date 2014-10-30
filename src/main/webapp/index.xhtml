@@ -88,15 +88,27 @@
 
                     <p:contextMenu for="dayDetail">
                         <p:submenu label="Move to:" icon="ui-icon-transferthick-e-w">
-                            <p:menuitem value="Monday" icon="ui-icon-arrowthick-1-e"/>
-                            <p:menuitem value="Tuesday" icon="ui-icon-arrowthick-1-e" actionListener="#{mBUpdateDay.moveTo}">
+                            <p:menuitem value="Monday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
+                                <f:attribute name="dayTo" value="Monday"/>
+                            </p:menuitem>
+                            <p:menuitem value="Tuesday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
                                 <f:attribute name="dayTo" value="Tuesday"/>
                             </p:menuitem>
-                            <p:menuitem value="Wednesday" icon="ui-icon-arrowthick-1-e"/>
-                            <p:menuitem value="Thursday" icon="ui-icon-arrowthick-1-e"/>
-                            <p:menuitem value="Friday" icon="ui-icon-arrowthick-1-e"/>
-                            <p:menuitem value="Saturday" icon="ui-icon-arrowthick-1-e"/>
-                            <p:menuitem value="Sunday" icon="ui-icon-arrowthick-1-e"/>
+                            <p:menuitem value="Wednesday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
+                                <f:attribute name="dayTo" value="Wednesday"/>
+                            </p:menuitem>
+                            <p:menuitem value="Thursday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
+                                <f:attribute name="dayTo" value="Thursday"/>
+                            </p:menuitem>
+                            <p:menuitem value="Friday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
+                                <f:attribute name="dayTo" value="Friday"/>
+                            </p:menuitem>
+                            <p:menuitem value="Saturday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
+                                <f:attribute name="dayTo" value="Saturday"/>
+                            </p:menuitem>
+                            <p:menuitem value="Sunday" icon="ui-icon-arrowthick-1-e" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.moveTo}">
+                                <f:attribute name="dayTo" value="Sunday"/>
+                            </p:menuitem>
                         </p:submenu>
                         <p:menuitem value="Delete" icon="ui-icon-trash" update=":weekForm:dayDetail" actionListener="#{mBUpdateDay.delete()}"/>
                     </p:contextMenu>
