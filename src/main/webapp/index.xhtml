@@ -10,18 +10,25 @@
 
         <f:facet name="last">
             <style type="text/css">
-                .ui-panel .ui-panel-content {
-                    padding: 0;
+
+                html {
+                    background: #25a1c3;
+                    background: -moz-linear-gradient(left,#25a1c3 0,#64bc5b 100%);
+                    background: -webkit-gradient(linear,left top,right top,color-stop(0,#25a1c3),color-stop(100%,#64bc5b));
+                    background: -webkit-linear-gradient(left,#25a1c3 0,#64bc5b 100%);
+                    background: -o-linear-gradient(left,#25a1c3 0,#64bc5b 100%);
+                    background: -ms-linear-gradient(left,#25a1c3 0,#64bc5b 100%);
+                    background: linear-gradient(to right,#25a1c3 0,#64bc5b 100%);
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#25a1c3',endColorstr='#64bc5b',GradientType=1);
                 }
+
                 .weekDataTable {
                     display: block;
-                    width: 1220px;
-                    margin: 10px auto;
-                }
-                .dayDataTree {
-                    width: 150px;
-                    float: left;
-                    margin: 10px;
+                    width: 1000px;
+                    margin: 25px auto;
+                    -webkit-box-shadow: 0px 5px 15px 1px rgba(0,0,0,0.75);
+                    -moz-box-shadow: 0px 5px 15px 1px rgba(0,0,0,0.75);
+                    box-shadow: 0px 5px 15px 1px rgba(0,0,0,0.75);
                 }
                 .ui-cell-editor {
                     display: inline-block;
@@ -116,36 +123,41 @@
                 </p:dialog>
 
                 <div style="clear: both;"></div>
-                <p:commandButton value="Update" actionListener="#{mBUpdateCalendar.info}" oncomplete="PF('fileUploadDialog').show();"/>
-                <p:commandButton value="Clear" process="@this" update="weekData" action="#{mBUpdateCalendar.clear}" rendered="#{not empty mBWeekView.daysOfWeek}"/>
 
-                <p:commandButton value="Export to xml" icon="ui-icon-arrowthick-1-s" ajax="false" 
-                                 rendered="#{not empty mBWeekView.daysOfWeek}" style="float: right"
-                                 onclick="PrimeFaces.monitorDownload(start, stop);">
-                    <p:fileDownload value="#{mBSaveCalendar.export()}"/>
-                </p:commandButton>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <p:commandButton value="Update" actionListener="#{mBUpdateCalendar.info}" oncomplete="PF('fileUploadDialog').show();"/>
+                        <p:dialog header="Upload" widgetVar="fileUploadDialog" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="true">
+                            <p:fileUpload auto="true" allowTypes="/(\.|\/)(xml)$/" update="weekData" 
+                                          fileUploadListener="#{mBUpdateCalendar.update}" 
+                                          oncomplete="PF('fileUploadDialog').hide();"/>
+                        </p:dialog>
+                        <p:commandButton value="Clear" process="@this" update="weekData" action="#{mBUpdateCalendar.clear}" rendered="#{not empty mBWeekView.daysOfWeek}"/>
+                    </f:facet>
+                    <f:facet name="right">
+                        <p:commandButton value="Export to xml" icon="ui-icon-arrowthick-1-s" ajax="false" 
+                                         rendered="#{not empty mBWeekView.daysOfWeek}" 
+                                         onclick="PrimeFaces.monitorDownload(start, stop);">
+                            <p:fileDownload value="#{mBSaveCalendar.export()}"/>
+                        </p:commandButton>
 
-                <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
-                    <p:graphicImage library="images" name="ajaxloadingbar.gif"/>
-                </p:dialog>
+                        <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+                            <p:graphicImage library="images" name="ajaxloadingbar.gif"/>
+                        </p:dialog>
 
-                <script type="text/javascript">
-                    function start() {
-                        PF('statusDialog').show();
-                    }
+                        <script type="text/javascript">
+                            function start() {
+                                PF('statusDialog').show();
+                            }
 
-                    function stop() {
-                        PF('statusDialog').hide();
-                    }
-                </script>
+                            function stop() {
+                                PF('statusDialog').hide();
+                            }
+                        </script>
 
-                <p:dialog header="Upload" widgetVar="fileUploadDialog" modal="true" 
-                          showEffect="fade" hideEffect="fade" resizable="true">
-                    <p:fileUpload auto="true" allowTypes="/(\.|\/)(xml)$/" update="weekData" 
-                                  fileUploadListener="#{mBUpdateCalendar.update}" 
-                                  oncomplete="PF('fileUploadDialog').hide();"/>
-                </p:dialog>
-
+                    </f:facet>
+                </p:toolbar>
 
             </p:panel>
 
