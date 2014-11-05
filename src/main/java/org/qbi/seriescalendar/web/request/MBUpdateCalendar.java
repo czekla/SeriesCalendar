@@ -48,9 +48,16 @@ public class MBUpdateCalendar implements Serializable {
 
     }
 
-    public void clear() {
-        System.out.println("clear");
+    public void emptyWeek() {
+        System.out.println("new");
         List<Day> days = new ArrayList<>();
+        days.add(new Day("Monday"));
+        days.add(new Day("Tuesday"));
+        days.add(new Day("Wednesday"));
+        days.add(new Day("Thursday"));
+        days.add(new Day("Friday"));
+        days.add(new Day("Saturday"));
+        days.add(new Day("Sunday"));
 
         weekView.setDaysOfWeek(days);
     }

@@ -26,9 +26,11 @@
                     display: block;
                     width: 1000px;
                     margin: 25px auto;
+                }
+                .shadow {
                     -webkit-box-shadow: 0px 5px 15px 1px rgba(0,0,0,0.75);
                     -moz-box-shadow: 0px 5px 15px 1px rgba(0,0,0,0.75);
-                    box-shadow: 0px 5px 15px 1px rgba(0,0,0,0.75);
+                    box-shadow: 0px 5px 15px 1px rgba(0,0,0,0.75);                    
                 }
                 .ui-cell-editor {
                     display: inline-block;
@@ -36,6 +38,16 @@
                 .scrollPanel {
                     max-width: 100%;
                     max-height: 600px;
+                }
+                .ui-menu .ui-separator {
+                    display: block;
+                    margin: 15px 0;
+                }
+                .login-menu {
+                    width: 120px;
+                }
+                .calendar-menu {
+                    width: 120px;
                 }
             </style>
         </f:facet>
@@ -45,8 +57,44 @@
         <p:growl id="growl" globalOnly="true" autoUpdate="true" showSummary="true" showDetail="true"/>
         <h:form id="weekForm">
 
-            <p:panel id="weekData" header="Series Calendar" styleClass="weekDataTable">
+            <p:panel id="weekData" header="Series Calendar" styleClass="weekDataTable shadow">
 
+                <!--Login-->
+                <p:commandLink id="loginBtn" style="float: right;">
+                    <p:graphicImage library="images" name="user-icon.png" style="width: 32px; height: 32px;"/>
+                </p:commandLink>
+                <p:menu overlay="true" trigger="loginBtn" my="right top" at="right bottom" styleClass="login-menu">
+                    <p:menuitem value="Login" icon="ui-icon-person" rendered="#{not mBUser.loggedIn}" onclick="PF('loginDlg').show();"/>
+                    <p:menuitem value="Logout" icon="ui-icon-person" rendered="#{mBUser.loggedIn}" actionListener="#{mBUser.logout}"/>
+                    <p:menuitem value="Register" icon="ui-icon-plusthick" rendered="#{not mBUser.loggedIn}"/>
+                </p:menu>
+
+                <p:dialog header="Login" widgetVar="loginDlg" resizable="false" modal="true">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <h:outputLabel for="username" value="Username:" />
+                        <p:inputText id="username" value="#{mBUser.username}" label="username"/>
+
+                        <h:outputLabel for="password" value="Password:" />
+                        <p:password id="password" value="#{mBUser.password}" label="password" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Login" actionListener="#{mBUser.login}" oncomplete="handleLoginRequest(xhr, status, args)"/>
+                        </f:facet>  
+                    </h:panelGrid>
+                </p:dialog>
+
+                <script type="text/javascript">
+                    function handleLoginRequest(xhr, status, args) {
+                        if (args.validationFailed || !args.loggedIn) {
+                            //PF('loginDlg').jq.effect("shake", {times: 5}, 100);
+                        }
+                        else {
+                            PF('loginDlg').hide();
+                        }
+                    }
+                </script>
+
+                <!--Calendar-->
                 <p:ring id="weekRing" value="#{mBWeekView.daysOfWeek}" var="dayOfWeek" easing="easeInOutBack">
                     <p:outputPanel style="text-align: center;" layout="block">
                         <div style="padding: 3px;">#{dayOfWeek.day}</div>
@@ -126,14 +174,19 @@
 
                 <p:toolbar>
                     <f:facet name="left">
-                        <p:commandButton value="Update" actionListener="#{mBUpdateCalendar.info}" oncomplete="PF('fileUploadDialog').show();"/>
+
+                        <p:commandButton id="calendarBtn" value="Calendar" type="button" icon="ui-icon-calendar"/>
+                        <p:menu overlay="true" trigger="calendarBtn" my="left top" at="left bottom" styleClass="calendar-menu">
+                            <p:menuitem value="New" icon="ui-icon-document" update="weekData" actionListener="#{mBUpdateCalendar.emptyWeek}"/>
+                            <p:menuitem value="Upload" icon="ui-icon-arrowreturnthick-1-n" actionListener="#{mBUpdateCalendar.info}" oncomplete="PF('fileUploadDialog').show();"/>
+                            <p:menuitem value="Save" icon="ui-icon-disk" rendered="#{mBUser.loggedIn}" />
+                        </p:menu>
                         <p:dialog header="Upload" widgetVar="fileUploadDialog" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="true">
                             <p:fileUpload auto="true" allowTypes="/(\.|\/)(xml)$/" update="weekData" 
                                           fileUploadListener="#{mBUpdateCalendar.update}" 
                                           oncomplete="PF('fileUploadDialog').hide();"/>
                         </p:dialog>
-                        <p:commandButton value="Clear" process="@this" update="weekData" action="#{mBUpdateCalendar.clear}" rendered="#{not empty mBWeekView.daysOfWeek}"/>
                     </f:facet>
                     <f:facet name="right">
                         <p:commandButton value="Export to xml" icon="ui-icon-arrowthick-1-s" ajax="false" 
@@ -158,12 +211,13 @@
 
                     </f:facet>
                 </p:toolbar>
-                
-                <iframe src="http://episodecalendar.com/icalendar/czekla@gmail.com/9GcxtV56X8wUXU3JgsAG/?v=light" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
+
 
             </p:panel>
 
         </h:form>
-
+        <p:panel styleClass="weekDataTable shadow">
+            <iframe src="http://episodecalendar.com/icalendar/czekla@gmail.com/9GcxtV56X8wUXU3JgsAG/?v=light" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
+        </p:panel>
     </h:body>  
 </html> 
