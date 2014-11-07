@@ -16,7 +16,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 import org.qbi.seriescalendar.web.model.Day;
-import org.qbi.seriescalendar.web.model.xml.ScheduleConverter;
+import org.qbi.seriescalendar.web.utils.ScheduleConverter;
 import org.qbi.seriescalendar.web.session.MBWeekView;
 
 /**

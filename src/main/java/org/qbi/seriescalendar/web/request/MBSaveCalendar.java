@@ -12,7 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import org.primefaces.model.StreamedContent;
 import org.qbi.seriescalendar.web.model.Day;
-import org.qbi.seriescalendar.web.model.xml.ScheduleConverter;
+import org.qbi.seriescalendar.web.utils.ScheduleConverter;
 import org.qbi.seriescalendar.web.session.MBWeekView;
 
 /**

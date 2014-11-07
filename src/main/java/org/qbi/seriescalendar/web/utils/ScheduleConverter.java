@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.qbi.seriescalendar.web.model.xml;
+package org.qbi.seriescalendar.web.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -24,6 +22,8 @@ import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import org.qbi.seriescalendar.web.model.Day;
 import org.qbi.seriescalendar.web.model.Series;
+import org.qbi.seriescalendar.web.model.xml.Schedule;
+import org.qbi.seriescalendar.web.model.xml.ScheduleDay;
 
 /**
  *
