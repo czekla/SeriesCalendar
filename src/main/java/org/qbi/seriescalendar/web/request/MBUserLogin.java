@@ -77,7 +77,7 @@ public class MBUserLogin {
         User u = null;
 
         if (un != null && pw != null) {
-            Session session = HibernateUtil.getSessionFactory().openSession();
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             Transaction tx = session.beginTransaction();
             String hql = "from User u where u.username = :username and u.password = :password";
             Query query = session.createQuery(hql);
@@ -85,7 +85,6 @@ public class MBUserLogin {
             query.setParameter("password", pw);
             u = (User) query.uniqueResult();
             tx.commit();
-            session.close();
         }
 
         return u;
