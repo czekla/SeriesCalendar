@@ -32,7 +32,7 @@
                 </p:commandLink>
                 <p:menu overlay="true" trigger="loginBtn" my="right top" at="right bottom" styleClass="login-menu">
                     <p:menuitem value="Login" icon="ui-icon-person" rendered="#{not mBUser.loggedIn}" onclick="PF('loginDlg').show();"/>
-                    <p:menuitem value="Logout" icon="ui-icon-person" rendered="#{mBUser.loggedIn}" actionListener="#{mBUser.logout}"/>
+                    <p:menuitem value="Logout" icon="ui-icon-person" rendered="#{mBUser.loggedIn}" actionListener="#{mBUserLogin.logout}"/>
                     <p:menuitem value="Register" icon="ui-icon-plusthick" rendered="#{not mBUser.loggedIn}"/>
                 </p:menu>
 
@@ -45,7 +45,7 @@
                         <p:password id="password" value="#{mBUser.password}" label="password" />
 
                         <f:facet name="footer">
-                            <p:commandButton value="Login" actionListener="#{mBUser.login}" oncomplete="handleLoginRequest(xhr, status, args)"/>
+                            <p:commandButton value="Login" actionListener="#{mBUserLogin.login}" oncomplete="handleLoginRequest(xhr, status, args)"/>
                         </f:facet>  
                     </h:panelGrid>
                 </p:dialog>
