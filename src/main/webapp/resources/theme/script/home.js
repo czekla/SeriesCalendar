@@ -7,6 +7,15 @@ function handleLoginRequest(xhr, status, args) {
     }
 }
 
+function handleRegisterRequest(xhr, status, args) {
+    if (args.validationFailed) {
+        //PF('loginDlg').jq.effect("shake", {times: 5}, 100);
+    }
+    else {
+        PF('registerDlg').hide();
+    }
+}
+
 function start() {
     PF('statusDialog').show();
 }

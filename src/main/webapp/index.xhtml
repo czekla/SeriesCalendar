@@ -15,13 +15,59 @@
 
         <f:facet name="last">
 
-            <h:outputStylesheet library="theme" name="css/style.css"/>
             <h:outputScript library="theme" name="script/home.js"/>
+
         </f:facet>
     </h:head>  
 
     <h:body>
+
+        <h:outputStylesheet library="theme" name="css/style.css"/>
+
         <p:growl id="growl" globalOnly="true" autoUpdate="true" showSummary="true" showDetail="true"/>
+
+        <h:form id="loginForm">
+            <p:dialog header="Login" widgetVar="loginDlg" resizable="false" modal="true" rendered="#{not mBUser.loggedIn}">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="username" value="Username:" />
+                    <p:inputText id="username" value="#{mBUser.username}" label="Username"/>
+
+                    <h:outputLabel for="password" value="Password:" />
+                    <p:password id="password" value="#{mBUser.password}" label="Password" />
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Login" actionListener="#{mBUserLogin.login}" oncomplete="handleLoginRequest(xhr, status, args)"/>
+                    </f:facet>  
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+
+        <h:form id="registerForm">
+            <p:dialog header="Register" widgetVar="registerDlg" resizable="false" modal="true" rendered="#{not mBUser.loggedIn}">
+                <h:panelGrid id="registerGrid" columns="3" cellpadding="5">
+
+                    <h:outputLabel for="reg-fullname" value="Fullname:" />
+                    <p:inputText id="reg-fullname" value="#{mBUserRegister.fullname}" label="Fullname" required="true" requiredMessage="Fullname is required."/>
+                    <p:message for="reg-fullname"/>
+
+                    <h:outputLabel for="reg-username" value="Username:" />
+                    <p:inputText id="reg-username" value="#{mBUserRegister.username}" label="Username" required="true" requiredMessage="Username is required.">
+                        <f:validator validatorId="custom.usernameValidator"/>
+                    </p:inputText>
+                    <p:message for="reg-username"/>
+
+                    <h:outputLabel for="reg-password" value="Password:" />
+                    <p:password id="reg-password" value="#{mBUserRegister.password}" feedback="true" label="Password" required="true" requiredMessage="Password is required."/>
+                    <p:message for="reg-password"/>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Register" update="registerGrid" validateClient="true" 
+                                         actionListener="#{mBUserRegister.register}" oncomplete="handleRegisterRequest(xhr, status, args)"/>
+                    </f:facet>  
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+
         <h:form id="weekForm">
 
             <p:panel id="weekData" header="Series Calendar" styleClass="weekDataTable shadow">
@@ -33,22 +79,8 @@
                 <p:menu overlay="true" trigger="loginBtn" my="right top" at="right bottom" styleClass="login-menu">
                     <p:menuitem value="Login" icon="ui-icon-person" rendered="#{not mBUser.loggedIn}" onclick="PF('loginDlg').show();"/>
                     <p:menuitem value="Logout" icon="ui-icon-person" rendered="#{mBUser.loggedIn}" actionListener="#{mBUserLogin.logout}"/>
-                    <p:menuitem value="Register" icon="ui-icon-plusthick" rendered="#{not mBUser.loggedIn}"/>
+                    <p:menuitem value="Register" icon="ui-icon-plusthick" rendered="#{not mBUser.loggedIn}" onclick="PF('registerDlg').show();"/>
                 </p:menu>
-
-                <p:dialog header="Login" widgetVar="loginDlg" resizable="false" modal="true">
-                    <h:panelGrid columns="2" cellpadding="5">
-                        <h:outputLabel for="username" value="Username:" />
-                        <p:inputText id="username" value="#{mBUser.username}" label="username"/>
-
-                        <h:outputLabel for="password" value="Password:" />
-                        <p:password id="password" value="#{mBUser.password}" label="password" />
-
-                        <f:facet name="footer">
-                            <p:commandButton value="Login" actionListener="#{mBUserLogin.login}" oncomplete="handleLoginRequest(xhr, status, args)"/>
-                        </f:facet>  
-                    </h:panelGrid>
-                </p:dialog>
 
                 <!--Calendar-->
                 <p:ring id="weekRing" value="#{mBWeekView.daysOfWeek}" var="dayOfWeek" easing="easeInOutBack">
@@ -163,7 +195,7 @@
 
         </h:form>
         <p:panel styleClass="weekDataTable shadow">
-            <iframe src="http://episodecalendar.com/icalendar/czekla@gmail.com/9GcxtV56X8wUXU3JgsAG/?v=light" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>
+            <!--<iframe src="http://episodecalendar.com/icalendar/czekla@gmail.com/9GcxtV56X8wUXU3JgsAG/?v=light" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>-->
         </p:panel>
     </h:body>  
 </html> 

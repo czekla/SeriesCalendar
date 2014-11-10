@@ -35,6 +35,7 @@ public class MBUserLogin {
 
     public void login(ActionEvent event) {
 
+        logger.debug("login");
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
 
@@ -90,8 +91,9 @@ public class MBUserLogin {
         return u;
     }
 
-    public void logout() {
+    public void logout(ActionEvent event) {
 
+        logger.debug("logout");
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
 
