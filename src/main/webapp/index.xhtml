@@ -166,14 +166,21 @@
                         <p:commandButton id="calendarBtn" value="Calendar" type="button" icon="ui-icon-calendar"/>
                         <p:menu overlay="true" trigger="calendarBtn" my="left top" at="left bottom" styleClass="calendar-menu">
                             <p:menuitem value="New" icon="ui-icon-document" update="weekData" actionListener="#{mBUpdateCalendar.emptyWeek}"/>
-                            <p:menuitem value="Upload" icon="ui-icon-arrowreturnthick-1-n" actionListener="#{mBUpdateCalendar.info}" oncomplete="PF('fileUploadDialog').show();"/>
+                            <p:menuitem value="Upload xml" icon="ui-icon-arrowreturnthick-1-n" actionListener="#{mBUpdateCalendar.infoXML}" oncomplete="PF('fileUploadDialogXML').show();"/>
+                            <p:menuitem value="Upload ics" icon="ui-icon-arrowreturnthick-1-n" actionListener="#{mBUpdateCalendar.infoICS}" oncomplete="PF('fileUploadDialogICS').show();"/>
                             <p:menuitem value="Save" icon="ui-icon-disk" rendered="#{mBUser.loggedIn}" />
                         </p:menu>
-                        <p:dialog header="Upload" widgetVar="fileUploadDialog" modal="true" 
+                        <p:dialog header="Upload" widgetVar="fileUploadDialogXML" modal="true" 
                                   showEffect="fade" hideEffect="fade" resizable="true">
                             <p:fileUpload auto="true" allowTypes="/(\.|\/)(xml)$/" update="weekData" 
-                                          fileUploadListener="#{mBUpdateCalendar.update}" 
-                                          oncomplete="PF('fileUploadDialog').hide();"/>
+                                          fileUploadListener="#{mBUpdateCalendar.updateXML}" 
+                                          oncomplete="PF('fileUploadDialogXML').hide();"/>
+                        </p:dialog>
+                        <p:dialog header="Upload" widgetVar="fileUploadDialogICS" modal="true" 
+                                  showEffect="fade" hideEffect="fade" resizable="true">
+                            <p:fileUpload auto="true" allowTypes="/(\.|\/)(ics)$/" update="weekData" 
+                                          fileUploadListener="#{mBUpdateCalendar.updateICS}" 
+                                          oncomplete="PF('fileUploadDialogICS').hide();"/>
                         </p:dialog>
                     </f:facet>
                     <f:facet name="right">
@@ -194,8 +201,8 @@
             </p:panel>
 
         </h:form>
-        <p:panel styleClass="weekDataTable shadow">
-            <!--<iframe src="http://episodecalendar.com/icalendar/czekla@gmail.com/9GcxtV56X8wUXU3JgsAG/?v=light" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe>-->
-        </p:panel>
+<!--         <p:panel styleClass="weekDataTable shadow"> -->
+<!--             <iframe src="http://episodecalendar.com/icalendar/czekla@gmail.com/9GcxtV56X8wUXU3JgsAG/?v=light" width="100%" height="500" frameborder="0" scrolling="auto" allowtransparency="true"></iframe> -->
+<!--         </p:panel> -->
     </h:body>  
 </html> 

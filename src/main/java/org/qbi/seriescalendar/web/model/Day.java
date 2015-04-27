@@ -53,5 +53,10 @@ public class Day implements Serializable {
     public String toString() {
         return "Day{" + "day=" + day + ", seriesList=" + seriesList + '}';
     }
+   
+    
+    public boolean isThatDay(String day){
+    	return this.day.equalsIgnoreCase(day);
+    }
 
 }

@@ -36,7 +36,8 @@ public class Series implements Serializable {
     }
 
     public void setLinks() {
-        torrentLink = "http://thepiratebay.se/search/" + title.replaceAll(" ", "%20") + "/0/99/0";
+        //torrentLink = "http://thepiratebay.se/search/" + title.replaceAll(" ", "%20") + "/0/99/0";
+        torrentLink = "https://kickass.to/usearch/" + title.replaceAll(" ", "%20")+"/?field=time_add&sorder=desc";
         subtitleLink = "http://www.feliratok.info/?search=" + title.replaceAll(" ", "+");
     }
 
@@ -85,5 +86,14 @@ public class Series implements Serializable {
     public String toString() {
         return day + "##" + title;
     }
+
+	@Override
+	public boolean equals(Object obj) {
+		
+		if (!(obj instanceof Series)) return false;
+		
+		Series ser = (Series)obj;
+		return this.day.equals(ser.day) && this.title.equals(ser.title);
+	}
 
 }

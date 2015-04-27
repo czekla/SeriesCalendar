@@ -30,13 +30,13 @@ public class MBUpdateCalendar implements Serializable {
     @ManagedProperty("#{mBWeekView}")
     private MBWeekView weekView;
 
-    public void info() {
+    public void infoXML() {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Please upload the schedule.xml file first!", "");
         FacesContext.getCurrentInstance().addMessage(null, message);
 
     }
 
-    public void update(FileUploadEvent event) {
+    public void updateXML(FileUploadEvent event) {
 
         System.out.println("update");
 
@@ -44,7 +44,25 @@ public class MBUpdateCalendar implements Serializable {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "upload.successful", file.getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
         
-        weekView.setDaysOfWeek(ScheduleConverter.convertToList(file));
+        weekView.setDaysOfWeek(ScheduleConverter.convertToListFromXML(file));
+
+    }
+    
+    public void infoICS() {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Please upload the *.ics file first!", "");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+
+    }
+
+    public void updateICS(FileUploadEvent event) {
+
+        System.out.println("update");
+
+        UploadedFile file = event.getFile();
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "upload.successful", file.getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        
+        weekView.setDaysOfWeek(ScheduleConverter.convertToListFromICS(file));
 
     }
 
